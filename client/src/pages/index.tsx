@@ -1,6 +1,6 @@
 function Index() {
     return (<>
-        <p>dashboard home</p>
+        <span>dashboard home</span>
     </>);
 }
 
