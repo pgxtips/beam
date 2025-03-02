@@ -4,32 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="/logo.png">
     <title>{% block pageTitle %} beam {% endblock %}</title>
-    <link rel="stylesheet" href="global.css">
-    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="/global.css">
+    <link rel="stylesheet" href="/layout.css">
   </head>
   <body>
     <div class="container">
         <div class="sidebar">
             <div class="brand">
-                <img src="logo.png">
+                <img src="/logo.png">
                 <span>beam</span>
             </div>
 
             <div class="side-items">
                 <ul>
-                    <li id="home-item">
+                    <a href="/dashboard"><li id="home-item">
                         <i data-lucide="house"></i>
                         <span class="ml-1">Home</span>
-                    </li>
-                    <li id="monitor-item">
+                    </li></a>
+                    <a href="/dashboard/monitor"><li id="monitor-item">
                         <i data-lucide="square-activity"></i>
                         <span class="ml-1">Monitoring</span>
-                    </li>
-                    <li id="settings-item">
+                    </li></a>
+                    <a href="/dashboard/settings"><li id="settings-item">
                         <i data-lucide="wrench"></i>
                         <span class="ml-1">Settings</span>
-                    </li>
+                    </li></a>
                 </ul>
             </div>
         </div>
@@ -44,6 +46,20 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         lucide.createIcons();
+
+        let activeDict = { 
+            "/dashboard": () => document.getElementById("home-item").classList.add("active"), 
+            "/dashboard/monitor": () => document.getElementById("monitor-item").classList.add("active"),
+            "/dashboard/settings": () => document.getElementById("settings-item").classList.add("active"),
+        };
+
+        // Get current URL path
+        let path = window.location.pathname;
+
+        // Lookup object and execute function if it exists
+        if (activeDict[path]) {
+            activeDict[path]();
+        }
     </script>
   </body>
 </html>
