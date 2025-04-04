@@ -1,6 +1,0 @@
-{
-  "watch": ["./client", "./server.py", "./build.sh"],
-  "exec": "./build.sh && uv run -m server && live-server ./client/build --no-browser",
-  "ext": "py,ts,tsx,js,sh,html,css",
-  "ignore": ["client/build/*", "client/dist/*", "node_modules/*"]
-}
