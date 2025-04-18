@@ -12,6 +12,10 @@ def get_recommendations():
 def index():
     return render_template("index.html")
 
+@app_server.route("/dashboard/datasource", methods=['get'])
+def datasource():
+    return render_template("datasource.html")
+
 @app_server.route("/dashboard/monitor", methods=['get'])
 def monitor():
     return render_template("monitor.html")
