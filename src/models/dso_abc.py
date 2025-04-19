@@ -6,7 +6,9 @@ class DSO(ABC):
     def __init__(self, src):
         self.src = src
         self.data: Optional[list] = None
-        self.attributes = []
+        self.keys = []
+        self.tag_column: Optional[str] = None
+        self.tags = []
         self.ENTRY_LIMIT = 50000
 
     @abstractmethod
@@ -18,9 +20,24 @@ class DSO(ABC):
         pass
 
     @abstractmethod
-    def get_attributes(self) -> Optional[list[str]]:
+    def load_tags(self) -> Optional[TextIOWrapper]:
+        pass
+
+    def set_tag_column(self, col_name: str):
+        self.tag_column = col_name
+
+    @abstractmethod
+    def get_data(self) -> Optional[list]:
         pass
 
     @abstractmethod
-    def get_data(self, selected_attributes: list[str]) -> Optional[list]:
+    def get_keys(self) -> Optional[list[str]]:
+        pass
+
+    @abstractmethod
+    def get_tags(self) -> Optional[list[str]]:
+        pass
+
+    @abstractmethod
+    def get_col_data(self, col_name: str) -> Optional[list]:
         pass

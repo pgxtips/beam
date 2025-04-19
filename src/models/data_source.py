@@ -3,29 +3,33 @@ from .dso_json import DSJsonFileObject
 from .dso_database import DSDatabaseObject
 
 class DataSource:
-    def __init__(self, type, src):
-        dso = self.create_dso(type, src)
-        if dso:
+    def __init__(self, dso_type, src):
+        if dso := create_dso(dso_type, src):
             dso.load_data()
-
         self.dso = dso
-        self.selected_features = []
-        self.target_feature_idx = -1
 
-    def create_dso(self, dso_type, src) -> DSO:
-        strategies = {
-            "database": DSDatabaseObject,
-            "file": DSJsonFileObject
-        }
-        if dso_type not in strategies:
-            raise Exception("Invalid data source type")
-        return strategies[dso_type](src)
+    def set_tag_column(self, col_name: str):
+        self.dso.set_tag_column(col_name)
 
-    def get_all_features(self):
-        return self.dso.get_attributes()
+    def get_keys(self):
+        return self.dso.get_keys()
 
-    def set_selected(self, selected):
-        self.selected_features = selected
+    def get_tags(self):
+        return self.dso.get_tags()
+
+    def get_col_data(self, col_name: str):
+        return self.dso.get_col_data(col_name)
 
     def get_data(self):
-        return self.dso.get_data(self.selected_features)
+        return self.dso.get_data()
+
+
+
+def create_dso(dso_type, src) -> DSO:
+    strategies = {
+        "database": DSDatabaseObject,
+        "file": DSJsonFileObject
+    }
+    if dso_type not in strategies:
+        raise Exception("Invalid data source type")
+    return strategies[dso_type](src)

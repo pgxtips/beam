@@ -1,5 +1,7 @@
 from .dso_abc import DSO
+from src.utils import flatten_dict
 
+from itertools import chain  
 import json
 
 class DSJsonFileObject(DSO):
@@ -20,51 +22,76 @@ class DSJsonFileObject(DSO):
             return None 
 
         data = []
-        attributes = set()
+        keys = set()
 
-        def add_attributes(arr):
+        def add_keys(arr):
             for el in arr:
-                attributes.add(el)
+                keys.add(el)
 
         with conn: 
             d = json.load(conn) 
             for el in d:
-                flattened_data = flatten_data(el)
+                flattened_data = flatten_dict(el)
                 data.append(flattened_data)
-                add_attributes(flattened_data.keys())
+                add_keys(flattened_data.keys())
 
         self.data = data
-        self.attributes = list(attributes)
+        self.keys = list(keys)
 
-    def get_data(self, selected_attributes):
+    def load_tags(self):
+        if not self.tag_column:
+            print("Error: no tag column set")
+            return
+
+        if not self.data:
+            print("Error: no tag column set")
+            return
+
+        tag_data = self.get_col_data(self.tag_column)
+
+        if not tag_data:
+            print("Error: no data in specified tag column")
+            return
+
+        filtered_data = (tags for tags in tag_data if tags is not None)
+        flattened_data = list(chain(*filtered_data))
+        tag_set = set(flattened_data)
+
+        self.tags = list(tag_set)
+
+    def get_data(self):
         if not self.data: 
             print("No Data Available")
             return None 
 
-        out = [
-           {attr: el.get(attr) for attr in selected_attributes} 
-           for el in self.data
-        ]
+        return self.data 
 
-        return out
-
-    def get_attributes(self):
-        if not self.attributes: 
+    def get_col_data(self, col_name: str):
+        if not self.data: 
             print("No Data Available")
             return None 
 
-        return self.attributes 
+        out = [ el.get(col_name) for el in self.data ]
+        return out
 
+    def get_keys(self):
+        if not self.keys: 
+            print("No Data Available")
+            return None 
 
-def flatten_data(y):
-    out = {}
+        return self.keys 
 
-    def flatten(x, name=''):
-        if type(x) is dict:
-            for a in x:
-                flatten(x[a], name + a + '_')
-        else:
-            out[name[:-1]] = x
+    def get_tags(self):
+        if not self.tag_column: 
+            print("No Tag Column Set")
+            return None 
 
-    flatten(y)
-    return out
+        if not self.data: 
+            print("No Data Available")
+            return None 
+
+        if not self.tags:
+            self.load_tags()
+
+        return self.tags
+
