@@ -3,11 +3,5 @@ class SessionData:
         # list of tags
         self.preferences = []
 
-        self.likes = {}
+        self.likes = []
         self.dislikes = [] 
-
-        # watch time > 70%
-        self.retained = [] 
-
-        # watch time < 40%
-        self.unretained = [] 

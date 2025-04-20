@@ -29,6 +29,8 @@ def test_get_tags():
     assert data is not None
     data.sort()
 
+    print("tag count:", len(data))
+
     expected = ['"Jamuna International', '"भविष्य की टेक्नोलॉजी Future technology', '#10hometips', '#11dailyusefulhometips', '#1Trending', '#8amazinghometips&hacks', '#8newhometips', '#ABS WORKOUT', '#ABS-CBNNews_Exclusive', '#ABS-CBNNews_Highlight', '#ABS-CBNNews_Livestream', '#ABSCBNNewsExclusive', '#ABSCBNNewsExclusive_HLS', '#AI Technology', '#Abisko', '#Adventure', '#AdventureSweden', '#AfricanTravel', '#AfroTrap', '#Agadir', '#Agra', '#AtlasMountains', '#Banaue', '#BavarianAlps', '#BeachVibes', '#BeautifulDestinations', '#BeautifulPlaces', '#BeautifulSweden', '#Berlin', '#BeyondTheHeadlines', '#BigFiveSafari', '#Bohol', '#Bollywood music', '#Bollywood song', '#Boracay', '#BouldersBeach', '#BreakingNews', '#BucketList', '#CARDIO', '#CampsBay', '#CapeOfGoodHope', '#CapeTown', '#CapeWinelands', '#Casablanca', '#CatLovers', '#CatOfTheDay', '#CatTikTok', '#CatVibes', '#CatVideos', '#Cats']
 
     assert data[:50] == expected

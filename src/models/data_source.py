@@ -11,6 +11,9 @@ class DataSource:
     def set_tag_column(self, col_name: str):
         self.dso.set_tag_column(col_name)
 
+    def set_content_id_column(self, col_name: str):
+        self.dso.set_content_id_column(col_name)
+
     def get_keys(self):
         return self.dso.get_keys()
 
@@ -22,8 +25,6 @@ class DataSource:
 
     def get_data(self):
         return self.dso.get_data()
-
-
 
 def create_dso(dso_type, src) -> DSO:
     strategies = {

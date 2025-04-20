@@ -8,6 +8,7 @@ class DSO(ABC):
         self.data: Optional[list] = None
         self.keys = []
         self.tag_column: Optional[str] = None
+        self.content_id_column: Optional[str] = None
         self.tags = []
         self.ENTRY_LIMIT = 50000
 
@@ -26,12 +27,15 @@ class DSO(ABC):
     def set_tag_column(self, col_name: str):
         self.tag_column = col_name
 
-    @abstractmethod
-    def get_data(self) -> Optional[list]:
-        pass
+    def set_content_id_column(self, col_name: str):
+        self.content_id_column = col_name
 
     @abstractmethod
     def get_keys(self) -> Optional[list[str]]:
+        pass
+
+    @abstractmethod
+    def get_data(self): 
         pass
 
     @abstractmethod
