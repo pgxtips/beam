@@ -1,6 +1,6 @@
 from .abc_recommender import Recommender
 
-class LogisticRecommender(Recommender):
+class SimilarityRecommender(Recommender):
     def train(self, session_id):
         pass
 
