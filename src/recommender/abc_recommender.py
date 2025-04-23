@@ -8,7 +8,3 @@ class Recommender(ABC):
     @abstractmethod
     def recommend(self, session_id, k=10) -> list:
         pass
-
-    @abstractmethod
-    def add_user_preferences(self, session_id):
-        pass

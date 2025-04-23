@@ -1,4 +1,4 @@
-from src.globals import app_data
+from src.globals import session_handler 
 
 from .abc_recommender import Recommender
 
@@ -19,95 +19,105 @@ class LogisticRecommender(Recommender):
 
         self.classifiers = {}  # session_id -> SGDClassifier
         self.vector_preferences = {}  # session_id -> vector preferences 
+        self.session_preferences = {}  # session_id -> session preferences 
 
         self.id_to_index = {cid: i for i, cid in enumerate(content_ids)}
 
     def train(self, session_id):
-        """
-        interactions: list of (content_id, label) where label is 1 (like) or 0 (dislike)
-        """
+        liked = session_handler.get_preprocessed_likes(session_id)
+        disliked = session_handler.get_preprocessed_dislikes(session_id)
 
-        assert session_id in self.classifiers
+        interactions = (
+            [[cid, 1] for cid in liked] +
+            [[cid, 0] for cid in disliked]
+        )
 
-        session_data = app_data.get_session_data(session_id)
-        assert session_data
+        X, y = [], []
 
-        liked = session_data.likes
-        disliked = session_data.dislikes
-
-        X = []
-        y = []
-        
-        for cid in liked:
+        for cid, status in interactions:
             if cid not in self.id_to_index:
                 continue
             idx = self.id_to_index[cid]
             content_vector = self.content_matrix[idx]
             X.append(content_vector)
-            y.append(1.0)
-
-        for cid in disliked:
-            if cid not in self.id_to_index:
-                continue
-            idx = self.id_to_index[cid]
-            content_vector = self.content_matrix[idx]
-            X.append(content_vector)
-            y.append(0.0)
+            y.append(status)
 
         if X:
             X_stack = np.vstack([x.toarray() for x in X])
             self.classifiers[session_id].partial_fit(
                 X_stack, y, classes=[0, 1]
             )
+            session_handler.process_likes(session_id)
+            session_handler.process_dislikes(session_id)
 
     def recommend(self, session_id, k=10):
-        
-        session_data = app_data.get_session_data(session_id)
+        self.__sync_session_model(session_id)
 
-        if not session_data:
-            print("Error: No session data found for id:", session_id)
-            return 
-        
-        if session_id in self.classifiers and hasattr(self.classifiers[session_id], "coef_"):
-            # Trained model exists
-            model = self.classifiers[session_id]
-            X = self.content_matrix
-            probs = model.predict_proba(X)[:, 1]
-            ranked_indices = np.argsort(probs)[::-1]
-        else:
-            # cold-start: rank by tag similarity with preferred_tags
-            if session_id not in self.vector_preferences:
-                raise Exception(f"User {session_id} has no calculated preferences or model.")
-            user_vec = self.vector_preferences[session_id]
-            sim_scores = (self.content_matrix @ user_vec.T).toarray().flatten()
-            ranked_indices = np.argsort(sim_scores)[::-1]
+        model = self.classifiers[session_id]
+        X = self.content_matrix
+        probs = model.predict_proba(X)[:, 1]
+        ranked_indices = np.argsort(probs)[::-1]
 
-        recommended_ids = []
-
+        rec_ids = []
         for idx in ranked_indices:
             cid = self.content_ids[idx]
-            if cid not in recommended_ids:
-                recommended_ids.append(cid)
-            if len(recommended_ids) == k:
+            if cid not in rec_ids:
+                rec_ids.append(cid)
+            if len(rec_ids) == k:
                 break
-        return recommended_ids
+        return rec_ids
 
-    def add_user_preferences(self, session_id):
-
-        session_data = app_data.get_session_data(session_id)
-        assert session_data
-
+    def __create_classifier(self, session_id):
         vocab = self.vectorizer.vocabulary_
         vector = lil_matrix((1, self.content_matrix.shape[1]), dtype=float)
 
-        for tag in session_data.preferences:
+        prefs = session_handler.get_preferences(session_id)
+
+        for tag in prefs:
             if tag in vocab:
                 vector[0, vocab[tag]] = 1.0
 
-        self.vector_preferences[session_id] = vector.tocsr()
+        pref_v = vector.tocsr()
+        self.vector_preferences[session_id] = pref_v
+
         # uses SGDClassifier as it allows for online learning
         # it allows handles sparse data well
-        self.classifiers[session_id] = SGDClassifier(
-            loss='log_loss',
-            max_iter=1000,
-        )
+        clf = SGDClassifier(loss='log_loss', max_iter=1000)
+        self.classifiers[session_id] = clf
+        clf.partial_fit(np.zeros((1, self.content_matrix.shape[1])), [0], classes=[0, 1])
+
+    def __sync_session_model(self, session_id: str):
+        # ensure a classifier has been created for current session
+        if (not self.classifiers.get(session_id)):
+            self.__create_classifier(session_id)
+
+        # ensure the model has update to date preferences
+        old_prefs = self.session_preferences.get(session_id, set())
+        new_prefs = session_handler.get_preferences(session_id)
+
+        if (old_prefs != new_prefs):
+            vocab = self.vectorizer.vocabulary_
+            vector = lil_matrix((1, self.content_matrix.shape[1]), dtype=float)
+
+            prefs = new_prefs
+            for tag in prefs:
+                if tag in vocab:
+                    vector[0, vocab[tag]] = 1.0
+
+            pref_v = vector.tocsr()
+            self.vector_preferences[session_id] = pref_v
+
+            clf = self.classifiers[session_id]
+
+            # seed with synthetic samples
+            pos = pref_v.toarray()
+            neg = np.zeros_like(pos)
+
+            X_seed = np.vstack([pos, neg])          # shape (2, n_tags)
+            y_seed = np.array([1, 0])               # like, dislike
+
+            clf.partial_fit(X_seed, y_seed, classes=[0, 1])
+            self.session_preferences[session_id] = new_prefs
+
+        # ensure that unprocessed likes and dislikes are processed
+        self.train(session_id)

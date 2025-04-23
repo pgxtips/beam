@@ -1,4 +1,5 @@
 from src.models.app_data import AppData
+from src.models.session_handler import SessionHandler
 from flask import Flask
 
 app_server = Flask(__name__,
@@ -8,3 +9,4 @@ app_server = Flask(__name__,
                )
 
 app_data = AppData()
+session_handler = SessionHandler()
