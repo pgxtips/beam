@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 class Recommender(ABC):
     @abstractmethod
-    def train(self, session_id, interactions):
+    def train(self, session_id):
         pass
 
     @abstractmethod
@@ -10,5 +10,5 @@ class Recommender(ABC):
         pass
 
     @abstractmethod
-    def add_user_preferences(self, session_id, preferred_tags):
+    def add_user_preferences(self, session_id):
         pass

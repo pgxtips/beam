@@ -45,6 +45,7 @@ def prepare_data(ds: DataSource):
     # build sparse CountVectorizer
     vectoriser = CountVectorizer(
         tokenizer=lambda x: x.split(),
+        token_pattern=None,
         max_features=tag_count
     )
     X = vectoriser.fit_transform(tags)  # X is sparse (n_videos x n_tags)

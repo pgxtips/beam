@@ -1,5 +1,5 @@
 from flask import jsonify, render_template
-from .globals import app_server
+from src.globals import app_server
 
 # API routes
 # TODO: change method to post
