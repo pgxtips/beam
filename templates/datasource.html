@@ -2,7 +2,7 @@
 
 {% block pageTitle%} beam | Dashboard | Monitor {% endblock %}
 
-{% block containerTitle %} Data Source {% endblock %}
+{% block contentTitle %} Data Source {% endblock %}
 
 {% block head %} 
 <style>
@@ -10,23 +10,63 @@ form {
     width: 80%;
 }
 </style>
+<script src="/datasource.js"></script>
 {% endblock %} 
 
 {% block content %} 
 
+<div class="card border-info mb-3" style="width: 80%;">
+  <div class="card-header">Information</div>
+  <div class="card-body">
+    <p class="card-text text-secondary">
+    Use this page to connect Beam to your content catalogue. 
+    Choose the source type (demo set, JSON file, or database), supply the file or 
+    connection URL, and specify which column holds the content to distribute and 
+    which holds the tags.  When you click **Save**, Beam imports the data, builds 
+    its tag matrix, and the recommendation engine starts using your new catalogue 
+    immediately.
+    </p>
+    <p class="card-text text-danger">
+    **Be aware that changes to this will lose all recommendation training**
+    </p>
+  </div>
+</div>
+
+
 <form>
-    <div class="mb-3">
-        <label for="sourceSelectInput" class="form-label">Source Select</label>
-        <select id="sourceSelectInput" class="form-select">
-          <option value="1" selected>Demo</option>
-          <option value="2">File (JSON)</option>
-          <option value="3">Database</option>
+    <div id="selectInputCont" class="mb-3">
+        <label for="selectInput" class="form-label">Source Select</label>
+        <select id="selectInput" class="form-select">
+            <option selected>Select a Source</option>
+            <option value="1">Demo (File)</option>
+            <option value="2">File (JSON)</option>
+            <option value="3">Database</option>
         </select>
-        <div id="sourceSelectInputHelp" class="form-text">A source which associates content IDs, content and tags together</div>
+        <div id="selectInputHelp" class="form-text">A source which associates content IDs, content and tags together</div>
     </div>
-    <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
+    <div id="fileInputCont" class="mb-3" style="display: none;">
+        <label for="fileInput" class="form-label">Source File</label>
+        <input class="form-control" type="file" id="fileInput">
+        <div id="fileInput" class="form-text">A JSON formatted file</div>
+    </div>
+    <div id="databaseInputCont" class="mb-3" style="display: none;">
+        <label for="databaseInput" class="form-label">Connection URL</label>
+        <input type="text" class="form-control" id="databaseInput">
+        <div id="databaseInput" class="form-text">A database connection string eg. postgres://YourUserName:YourPassword@YourHostname:5432/YourDatabaseName</div>
+    </div>
+    <div id="selectContentCont" class="mb-3">
+        <label for="selectContent" class="form-label">Select Content Column</label>
+        <select id="selectContent" class="form-select">
+            <option value="-1" selected>Select Content Column</option>
+        </select>
+        <div id="selectContentHelp" class="form-text">Select the column label which contains the content to be delivered</div>
+    </div>
+    <div id="selectTagCont" class="mb-3">
+        <label for="selectTag" class="form-label">Select Tag Column</label>
+        <select id="selectTag" class="form-select">
+            <option selected>Select Tag Column</option>
+        </select>
+        <div id="selectTagHelp" class="form-text">Select the column label which contains the tags</div>
     </div>
 
     <button class="btn btn-secondary">Cancel</button>

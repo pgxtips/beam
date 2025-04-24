@@ -65,7 +65,15 @@
 }
 
 .content {
+    height: 98vh;
     padding: 1rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
 }
 
+#contentTitle {
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+}
 
