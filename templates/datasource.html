@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block pageTitle%} beam | Dashboard | Monitor {% endblock %}
+
+{% block containerTitle %} Data Source {% endblock %}
+
+{% block head %} 
+<style>
+form {
+    width: 80%;
+}
+</style>
+{% endblock %} 
+
+{% block content %} 
+
+<form>
+    <div class="mb-3">
+        <label for="sourceSelectInput" class="form-label">Source Select</label>
+        <select id="sourceSelectInput" class="form-select">
+          <option value="1" selected>Demo</option>
+          <option value="2">File (JSON)</option>
+          <option value="3">Database</option>
+        </select>
+        <div id="sourceSelectInputHelp" class="form-text">A source which associates content IDs, content and tags together</div>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+
+    <button class="btn btn-secondary">Cancel</button>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+{% endblock %}

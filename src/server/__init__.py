@@ -1,4 +1,4 @@
-from .globals import app_server
+from src.globals import app_server
 from .router import * 
 
 def start_server():
