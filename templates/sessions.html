@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block pageTitle%} beam | Dashboard | Sessions {% endblock %}
+
+{% block contentTitle %} Sessions {% endblock %}
+
+{% block head %} 
+<script src="/js/sessions.js"></script>
+<link rel="stylesheet" href="/css/sessions.css">
+{% endblock %}
+
+{% block content %} 
+<table id="sessionTable" class="table table-striped table-hover" style="width: 80%;">
+  <thead>
+    <tr>
+      <th scope="col">SID</th>
+      <th scope="col">Created at</th>
+      <th scope="col">Last seen</th>
+      <th scope="col">Likes</th>
+      <th scope="col">Dislikes</th>
+      <th scope="col">Preferences</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<div class="card border-secondary mb-3" style="width: 80%;">
+  <div class="card-header">Session Information</div>
+  <div class="card-body">
+    <p class="card-text text-secondary">
+    No table row selected
+    </p>
+    <div class="card-text text-primary">
+        <p>SID: <span class="info" id="info-sid">aidsfj-a82jf-asdf</span> </p>
+        <p>Preferences: [<span class="info" id="info-pref">coding, tech</span>] </p>
+        <p>Likes: [<span class="info" id="info-likes">vid123  vid456  vid789</span>] </p>
+        <p>Dislikes: [<span class="info" id="info-dislikes">vid123  vid456  vid789</span>] </p>
+
+        <p>Active Model: <span class="info" id="info-activeModel">Logisitic</span> </p>
+        <p>Last Model Train: <span class="info" id="info-lastTrain">10:43am 29/03/2023</span> </p>
+        <p>Model Samples: <span class="info" id="info-modelSamples">8</span> </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

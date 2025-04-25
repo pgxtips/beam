@@ -16,9 +16,17 @@ def index():
 def datasource():
     return render_template("datasource.html")
 
+@app_server.route("/dashboard/sessions", methods=['get'])
+def sessions():
+    return render_template("sessions.html")
+
 @app_server.route("/dashboard/monitor", methods=['get'])
 def monitor():
     return render_template("monitor.html")
+
+@app_server.route("/dashboard/logs", methods=['get'])
+def logs():
+    return render_template("logs.html")
 
 @app_server.route("/dashboard/settings", methods=['get'])
 def settings():

@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block head %} 
+<script src="/js/logs.js"></script>
+{% endblock %}
+
+{% block pageTitle%} beam | Dashboard | Logs {% endblock %}
+
+{% block contentTitle %} Logs {% endblock %}
+
+{% block content %} 
+
+<table id="logsTable" class="table table-striped table-hover" style="width: 80%;">
+  <thead>
+    <tr>
+      <th scope="col">Timestamp</th>
+      <th scope="col">Type</th>
+      <th scope="col">Session ID</th>
+      <th scope="col">Message</th>
+      <th scope="col">Details</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+{% endblock %}
