@@ -4,6 +4,63 @@
 
 {% block contentTitle %} Settings {% endblock %}
 
+{% block head %} 
+<script src="/js/settings.js"></script>
+<link rel="stylesheet" href="/css/settings.css">
+{% endblock %}
+
+
 {% block content %} 
-<span> dashboard settings </span>
+<form>
+    <h3>General Settings</h3>
+
+    <div id="selectModelInputCont" class="mb-3">
+        <label for="selectModelInput" class="form-label">Default Model</label>
+        <select id="selectModelInput" class="form-select">
+            <option selected>Select a Model</option>
+            <option value="1">Logistic Regressor (AI)</option>
+            <option value="2">Similarity (Weighted)</option>
+            <option value="3">None</option>
+        </select>
+    </div>
+    <div id="batchSizeCont" class="mb-3">
+        <label for="batchSizeInput" class="form-label">Batch Size</label>
+        <input type="range" class="form-range" min="1" max="5" step="1" id="batchSizeInput">
+    </div>
+
+    <h3>Model Settings</h3>
+
+    <div id="selectAutoTrainingCont" class="mb-3">
+        <label for="selectAutoTrainingInput" class="form-label">Auto Training</label>
+        <select id="selectAutoTrainingInput" class="form-select">
+            <option value="1">Yes</option>
+            <option value="2">No</option>
+        </select>
+    </div>
+    <div id="selectIntervalCont" class="mb-3">
+        <label for="selectIntervalInput" class="form-label">Interval</label>
+        <select id="selectIntervalInput" class="form-select">
+            <option value="1">1 hours</option>
+            <option value="2">4 hours</option>
+            <option value="3">8 hours</option>
+            <option value="4">16 hours</option>
+            <option value="5">1 day</option>
+            <option value="6">1 week</option>
+        </select>
+    </div>
+
+    <h3>UI</h3>
+
+    <div id="selectUIThemeCont" class="mb-3">
+        <label for="selectUIThemeInput" class="form-label">Theme</label>
+        <select id="selectUIThemeInput" class="form-select">
+            <option value="1">Light</option>
+            <option value="2">Dark</option>
+        </select>
+    </div>
+
+    <button class="btn btn-secondary">Edit</button>
+    <button class="btn btn-secondary">Cancel</button>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
 {% endblock %}
