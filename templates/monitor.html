@@ -4,6 +4,77 @@
 
 {% block contentTitle %} Monitoring {% endblock %}
 
+{% block head %} 
+<script src="/js/monitor.js"></script>
+<link rel="stylesheet" href="/css/monitor.css">
+{% endblock %}
+
 {% block content %} 
-<span> dashboard monitor </span>
+ <!-- System Usage Section -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card border-info mb-3">
+                <div class="card-header">System Usage</div>
+                <div class="card-body">
+                    <h5 class="card-title">CPU Usage</h5>
+                    <div class="chart-container">
+                        <canvas id="cpuChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card border-info mb-3">
+                <div class="card-header">System Usage</div>
+                <div class="card-body">
+                    <h5 class="card-title">Memory Usage</h5>
+                    <div class="chart-container">
+                        <canvas id="memoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Network Traffic Section -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card border-success mb-3">
+                <div class="card-header">Network Traffic</div>
+                <div class="card-body">
+                    <h5 class="card-title">Incoming Traffic (kb/s)</h5>
+                    <div class="chart-container">
+                        <canvas id="incomingTrafficChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card border-success mb-3">
+                <div class="card-header">Network Traffic</div>
+                <div class="card-body">
+                    <h5 class="card-title">Outgoing Traffic (kb/s)</h5>
+                    <div class="chart-container">
+                        <canvas id="outgoingTrafficChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Response Time Section -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card border-warning mb-3">
+                <div class="card-header">Response Times</div>
+                <div class="card-body">
+                    <h5 class="card-title">Average Response Time</h5>
+                    <div class="chart-container">
+                        <canvas id="responseTimeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
