@@ -5,7 +5,9 @@
 {% block contentTitle %} Home {% endblock %}
 
 {% block head %} 
-<script src="/js/index.js"></script>
+<script src="/js/controllers/get_controller.js"></script>
+<script src="/js/pages/index/indexRedeemer.js"></script>
+<script src="/js/pages/index/indexInit.js"></script>
 <link rel="stylesheet" href="/css/index.css">
 {% endblock %}
 
@@ -18,10 +20,10 @@
 <div class="row mt-5">
     <div class="col-md-4">
         <div class="card border-primary mb-3">
-            <div class="card-header">Total Users</div>
+            <div class="card-header">Total Requests</div>
             <div class="card-body metric-card">
-                <h2>1,245</h2>
-                <p>Total number of users using the recommendation engine</p>
+                <h2 id="recRequests">N/A</h2>
+                <p>Total number of recommendation requests made</p>
             </div>
         </div>
     </div>
@@ -30,7 +32,7 @@
         <div class="card border-success mb-3">
             <div class="card-header">Active Sessions</div>
             <div class="card-body metric-card">
-                <h2>54</h2>
+                <h2 id="activeSessions">N/A</h2>
                 <p>Number of active sessions currently running</p>
             </div>
         </div>
@@ -40,7 +42,7 @@
         <div class="card border-warning mb-3">
             <div class="card-header">System Status</div>
             <div class="card-body metric-card">
-                <h2>Operational</h2>
+                <h2 id="systemStatus">N/A</h2>
                 <p>System is fully operational with no issues reported</p>
             </div>
         </div>
