@@ -4,6 +4,81 @@
 
 {% block contentTitle %} Home {% endblock %}
 
+{% block head %} 
+<script src="/js/index.js"></script>
+<link rel="stylesheet" href="/css/index.css">
+{% endblock %}
+
 {% block content %} 
-<span> dashboard home </span>
+<!-- Hero Section -->
+<div class="hero">
+    <h1>Welcome to the Dashboard</h1>
+    <p class="lead">Manage and monitor the performance of your recommendation engine. Get key insights, view active sessions, and configure settings.</p>
+</div>
+
+<!-- Key Metrics Section -->
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card border-primary mb-3">
+            <div class="card-header">Total Users</div>
+            <div class="card-body metric-card">
+                <h2>1,245</h2>
+                <p>Total number of users using the recommendation engine</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-success mb-3">
+            <div class="card-header">Active Sessions</div>
+            <div class="card-body metric-card">
+                <h2>54</h2>
+                <p>Number of active sessions currently running</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-warning mb-3">
+            <div class="card-header">System Status</div>
+            <div class="card-body metric-card">
+                <h2>Operational</h2>
+                <p>System is fully operational with no issues reported</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Links Section -->
+<div class="row mt-5 quick-links">
+    <div class="col-md-4">
+        <div class="card border-info mb-3">
+            <div class="card-header">Monitoring</div>
+            <div class="card-body">
+                <p>Monitor system health, traffic, and performance metrics in real time.</p>
+                <a href="/dashboard/monitor" class="btn btn-info">Go to Monitoring</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-secondary mb-3">
+            <div class="card-header">Settings</div>
+            <div class="card-body">
+                <p>Configure your recommendation engine settings and preferences.</p>
+                <a href="/dashboard/settings" class="btn btn-secondary">Go to Settings</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-dark mb-3">
+            <div class="card-header">Data Source</div>
+            <div class="card-body">
+                <p>View and manage your data sources for content and tag associations.</p>
+                <a href="/dashboard/datasource" class="btn btn-secondary">Go to Data Source</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

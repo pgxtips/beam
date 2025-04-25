@@ -79,7 +79,10 @@
     overflow-y: auto;
     overflow-x: hidden;
     position: relative;
+
+    padding-right: 5%;
 }
+
 
 #contentTitle {
     margin-top: 2.5%;
