@@ -2,7 +2,9 @@ async function sessionsRedeemer(){
     await get_controller("/internal/sessions", cbSessions, {})
 }
 
-function cbSessions(data){
+var SESSION_DATA = {}
+
+function cbSessions(props, data){
     console.log(data)
 
     let table = $("#sessionTable")
@@ -25,7 +27,14 @@ function cbSessions(data){
         let model_samples = dp.model_samples ?? "N/A"
         let last_trained = dp.last_trained ?? "N/A"
 
+        let DATA_ENTRY = {
+            session_id, created, last_seen, preferences, likes, dislikes, last_recs, model_samples, last_trained,
+        }
+        SESSION_DATA[session_id] = DATA_ENTRY
+
+
         let tr = document.createElement("tr")
+        $(tr).attr("data-sid", session_id)
 
         tr.append(td(session_id))
         tr.append(td(created))
@@ -37,4 +46,6 @@ function cbSessions(data){
         body.append(tr)
     }
 
+    console.log(SESSION_DATA)
+    $(".loading-state").hide()
 }
