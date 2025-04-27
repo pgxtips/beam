@@ -14,6 +14,10 @@ function cbDatasource(props, data){
     $("#selectInput").val(source_type)
 
     switch (source_type){
+        case "1":
+            $("#fileNameDisplay").text(source_data)
+            selectDemo()
+            break;
         case "2":
             $("#fileNameDisplay").text(source_data)
             selectFile()

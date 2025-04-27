@@ -32,6 +32,8 @@ $(document).ready(async function(){
 
 function selectDemo(){
     $("#fileInputButton").attr("disabled", "true")
+    $("#selectContent").attr("disabled", "true")
+    $("#selectTag").attr("disabled", "true")
     $("#fileNameDisplay").text("DEMO_FILE.json")
     $("#fileInputCont").show()
     $("#databaseInputCont").hide()

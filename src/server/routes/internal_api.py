@@ -17,7 +17,7 @@ def get_index_data():
 def get_datasource_data():
     return jsonify(
         {
-            "source_type": "2",
+            "source_type": "1",
             "source_data": "youtube_json.json",
             "attributes": ["id", "content", "last_seen", "created_at"],
             "content_column": "0",
