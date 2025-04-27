@@ -46,6 +46,5 @@ function cbSessions(props, data){
         body.append(tr)
     }
 
-    console.log(SESSION_DATA)
     $(".loading-state").hide()
 }

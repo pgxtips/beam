@@ -1,8 +1,8 @@
 async function logsRedeemer(){
-    await get_controller("/internal/logs", cbLogs)
+    await get_controller("/internal/logs", cbLogs, {})
 }
 
-function cbLogs(data){
+function cbLogs(props, data){
     console.log(data)
     let table = $("#logsTable")
     let body = table.find("tbody")
@@ -31,4 +31,5 @@ function cbLogs(data){
         body.append(tr)
     }
 
+    $(".loading-state").hide()
 }
