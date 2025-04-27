@@ -1,5 +1,5 @@
 async function sessionsRedeemer(){
-    await get_controller("/internal/sessions", cbSessions)
+    await get_controller("/internal/sessions", cbSessions, {})
 }
 
 function cbSessions(data){

@@ -1,5 +1,6 @@
 from flask import jsonify
 from src.globals import app_server
+from src.utils import *
 
 # Internal API routes 
 @app_server.route("/internal/index", methods=['get'])
@@ -18,8 +19,9 @@ def get_datasource_data():
         {
             "source_type": "2",
             "source_data": "youtube_json.json",
-            "content_column": "id",
-            "tag_column": "tags",
+            "attributes": ["id", "content", "last_seen", "created_at"],
+            "content_column": "0",
+            "tag_column": "1",
         }
     )
 
@@ -78,13 +80,16 @@ def get_session_data():
 
 @app_server.route("/internal/monitor", methods=['get'])
 def get_monitor_data():
+    cpu_usage_data = get_cpu_usage()
+    memory_usage_data = get_memory_usage()
+    net_in, net_out = get_network_usage()
+
     return jsonify(
         {
-            "cpu_usage": "23",
-            "memory_usage": "1300",
-            "incoming_traffic": "10",
-            "outgoing_traffic": "14",
-            "average_response_time": "25",
+            "cpu_usage": cpu_usage_data,
+            "memory_usage": memory_usage_data,
+            "net_in": net_in,
+            "net_out": net_out,
         }
     )
 

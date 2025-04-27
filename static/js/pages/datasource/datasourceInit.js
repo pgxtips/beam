@@ -3,6 +3,11 @@ console.log("data source init")
 var hasChanged = false
 
 $(document).ready(async function(){
+
+    $("select, input").change(function(event){
+        console.log("input changed")
+        $("#saveButtons").show()
+    })
        
     $("#selectInput").change(function(event){
         let selected = $("#selectInput :selected")

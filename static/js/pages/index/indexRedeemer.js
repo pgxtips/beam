@@ -1,8 +1,8 @@
 async function indexRedeemer(){
-    await get_controller("/internal/index", cbIndex)
+    await get_controller("/internal/index", cbIndex, {})
 }
 
-function cbIndex(data){
+function cbIndex(props, data){
     let rec_requests = data.rec_requests ?? "N/A"
     let active_sessions = data.active_sessions ?? "N/A"
     let system_status = data.system_status ?? "N/A"
@@ -14,4 +14,5 @@ function cbIndex(data){
     $("#systemStatus").html(system_status)
 
     console.log(data)
+    $(".loading-state").hide()
 }

@@ -43,8 +43,11 @@
     </div>
     <div id="fileInputCont" class="mb-3" style="display: none;">
         <label for="fileInput" class="form-label">Source File</label>
-        <input class="form-control" type="file" id="fileInput">
-        <div id="fileInput" class="form-text">A JSON formatted file</div>
+        <input class="form-control" type="file" id="fileInput" style="display: none;">
+        <br/>
+        <button id="fileInputButton" type="button" class="btn btn-primary">Upload</button>
+        <span id="fileNameDisplay" class="ms-2">No file chosen</span>
+        <div class="form-text">A JSON formatted file</div>
     </div>
     <div id="databaseInputCont" class="mb-3" style="display: none;">
         <label for="databaseInput" class="form-label">Connection URL</label>
@@ -66,7 +69,7 @@
         <div id="selectTagHelp" class="form-text">Select the column label which contains the tags</div>
     </div>
 
-    <div id="selectTagCont" class="mb-3" style="display: none:">
+    <div id="saveButtons" class="mb-3" style="display: none;">
         <button class="btn btn-secondary">Cancel</button>
         <button type="submit" class="btn btn-primary">Save</button>
     </div>
