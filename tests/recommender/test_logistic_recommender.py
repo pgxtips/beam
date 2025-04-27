@@ -2,7 +2,7 @@ from src.recommender.logistic_recommender import LogisticRecommender
 from src.recommender.data_processing import prepare_data
 from src.models.data_source import DataSource
 
-from src.globals import session_handler 
+from src.app import session_handler 
 
 def test_lr_user_pref():
     data_source  = DataSource("file", "./data/youtube_data.json")

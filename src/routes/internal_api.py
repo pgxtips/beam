@@ -1,5 +1,5 @@
 from flask import jsonify
-from src.globals import app_server
+from src.app import app_server
 from src.utils import *
 
 # Internal API routes 

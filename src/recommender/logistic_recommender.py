@@ -1,4 +1,4 @@
-from src.globals import session_handler 
+from src.app import session_handler 
 
 from .abc_recommender import Recommender
 

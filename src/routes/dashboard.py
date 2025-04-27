@@ -1,5 +1,5 @@
 from flask import jsonify, render_template
-from src.globals import app_server
+from src.app import app_server
 
 # dashboard routes
 @app_server.route("/dashboard", methods=['get'])

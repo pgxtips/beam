@@ -10,3 +10,7 @@ app_server = Flask(__name__,
 
 app_data = AppData()
 session_handler = SessionHandler()
+
+from src.routes.dashboard import * 
+from src.routes.internal_api import * 
+from src.routes.external_api import * 
