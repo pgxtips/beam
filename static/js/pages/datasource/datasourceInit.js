@@ -31,11 +31,14 @@ $(document).ready(async function(){
 
 
 function selectDemo(){
-    $("#fileInputCont").hide()
+    $("#fileInputButton").attr("disabled", "true")
+    $("#fileNameDisplay").text("DEMO_FILE.json")
+    $("#fileInputCont").show()
     $("#databaseInputCont").hide()
 }
 
 function selectFile(){
+    $("#fileInputButton").removeAttr("disabled")
     $("#fileInputCont").show()
     $("#databaseInputCont").hide()
 }
