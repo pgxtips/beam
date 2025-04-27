@@ -19,7 +19,7 @@ def get_datasource_data():
             "source_type": "2",
             "source_data": "youtube_json.json",
             "content_column": "id",
-            "content_column": "tags",
+            "tag_column": "tags",
         }
     )
 

@@ -1,4 +1,3 @@
 $(document).ready(async function(){
-    await sessionsRedeemer()
+    await monitorRedeemer()
 })
-

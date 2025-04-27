@@ -2,7 +2,7 @@ console.log("data source init")
 
 var hasChanged = false
 
-$(document).ready(function(){
+$(document).ready(async function(){
        
     $("#selectInput").change(function(event){
         let selected = $("#selectInput :selected")
@@ -20,6 +20,8 @@ $(document).ready(function(){
                 break;
         }
     });
+
+    await datasourceRedeemer()
 })
 
 
@@ -37,15 +39,3 @@ function selectDatabase(){
     $("#databaseInputCont").show()
     $("#fileInputCont").hide()
 }
-
-//function selectFile(){
-//    console.log("selecting file input")
-//    $("#fileInputCont").removeClass("hidden")
-//    $("#databaseInputCont").addClass("hidden")
-//}
-//
-//function selectDatabase(){
-//    console.log("selecting database input")
-//    $("#databaseInputCont").removeClass("hidden")
-//    $("#fileInputCont").addClass("hidden")
-//}
