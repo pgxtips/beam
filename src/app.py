@@ -9,6 +9,7 @@ globals.APP_SERVER = Flask(__name__,
                )
 
 globals.APP_DATA = AppData()
+globals.APP_DATA.load_app_data()
 
 from src.routes.dashboard import * 
 from src.routes.internal_api import * 

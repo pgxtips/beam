@@ -15,12 +15,15 @@ function cbDatasource(props, data){
 
     switch (source_type){
         case "demo":
-            $("#fileNameDisplay").text(source_data)
             selectDemo()
+            $("#fileNameDisplay").text(source_data)
             break;
         case "file":
-            $("#fileNameDisplay").text(source_data)
             selectFile()
+
+            $("#fileNameDisplay").text(source_data)
+            $("#selectContentCont").show()
+            $("#selectTagCont").show()
             break;
         case "database":
             selectDatabase()
@@ -51,6 +54,11 @@ function cbDatasource(props, data){
 }
 
 function cbAttributes(data){
+
+    $("#selectContentCont").show()
+    $("#selectTagCont").show()
+    $("#saveButtons").show()
+
     console.log(data)
     let keys = data.keys
 

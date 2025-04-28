@@ -230,10 +230,9 @@ def post_datasource_data():
 
         if source_type == "demo":
             dso = DataSource("demo", "")
-            globals.APP_DATA.data_source = dso
+            globals.APP_DATA.set_datasource(dso)
 
             return jsonify( { "status": 200 })
-
 
         if (file_upload):
             file = request.files.get("fileInput")
@@ -243,14 +242,14 @@ def post_datasource_data():
             data_source = DataSource("file", path)
             keys = data_source.get_keys()
 
-            globals.APP_DATA.temp_data_source = data_source
+            globals.APP_DATA.set_temp_datasource(data_source)
 
             return jsonify({ "status": 200, "keys": keys })
 
         else:
             temp_ds = globals.APP_DATA.temp_data_source
             if not temp_ds:
-                globals.APP_DATA.temp_data_source = globals.APP_DATA.data_source
+                globals.APP_DATA.set_temp_datasource(globals.APP_DATA.data_source)
 
             assert temp_ds
 
@@ -260,7 +259,7 @@ def post_datasource_data():
             temp_ds.set_content_id_column(content_column)
             temp_ds.set_tag_column(tag_column)
 
-            globals.APP_DATA.data_source = temp_ds
+            globals.APP_DATA.set_datasource(temp_ds)
 
         return jsonify( { "status": 200 })
 

@@ -16,6 +16,10 @@ $(document).ready(async function(){
 
         let filename = event.currentTarget.files[0].name
         $("#fileNameDisplay").text(filename)
+
+        $("#selectContentCont").hide()
+        $("#selectTagCont").hide()
+        $("#saveButtons").hide()
     })
 
 
@@ -52,11 +56,18 @@ function selectDemo(){
     $("#databaseInput").attr("disabled", "true")
 
     //$("#fileNameDisplay").text("DEMO_FILE.json")
-    $("#fileInputCont").show()
+    $("#fileInputCont").hide()
     $("#databaseInputCont").hide()
+    $("#selectContentCont").hide()
+    $("#selectTagCont").hide()
 }
 
 function selectFile(){
+    // file input
+    $("#fileInput").val("");
+    $("#fileNameDisplay").text("No File Uploaded")
+
+
     $("#databaseInput").attr("disabled", "true")
 
     $("#fileInputButton").removeAttr("disabled")
@@ -65,6 +76,10 @@ function selectFile(){
 
     $("#fileInputCont").show()
     $("#databaseInputCont").hide()
+
+    $("#saveButtons").hide()
+    $("#selectContentCont").hide()
+    $("#selectTagCont").hide()
 }
 
 function selectDatabase(){
@@ -76,4 +91,8 @@ function selectDatabase(){
 
     $("#databaseInputCont").show()
     $("#fileInputCont").hide()
+
+    $("#saveButtons").hide()
+    $("#selectContentCont").hide()
+    $("#selectTagCont").hide()
 }
