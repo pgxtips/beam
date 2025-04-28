@@ -314,6 +314,6 @@ uploads/
 
 
 **/package-lock.json
-**/uv.lock
+uv.lock
 
-**/app_data.pkl
+app_data.pkl
