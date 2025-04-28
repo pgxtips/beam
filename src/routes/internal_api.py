@@ -1,3 +1,4 @@
+from enum import auto
 from flask import jsonify, request
 
 from src.globals import APP_SERVER 
@@ -125,16 +126,28 @@ def get_log_data():
 
 @APP_SERVER.route("/internal/get/settings", methods=['get'])
 def get_settings_data():
-    return jsonify(
-        {
-            "status": 200,
-            "model_type": "1",
-            "batch_size": "5",
-            "auto_training": "1",
-            "training_interval": "5",
-            "ui_theme": "1",
-        }
-    )
+    try:
+        import src.globals as globals
+
+        default_model = globals.APP_DATA.default_model
+        batch_size = globals.APP_DATA.batch_size
+        auto_training = globals.APP_DATA.auto_training
+        ui_theme = globals.APP_DATA.ui_theme
+
+        return jsonify(
+            {
+                "status": 200,
+                "model_type": default_model,
+                "batch_size": batch_size,
+                "auto_training": auto_training,
+                "ui_theme": ui_theme,
+            }
+        )
+    except Exception as e:
+        pass
+
+
+    
 
 
 # --------------------------

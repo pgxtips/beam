@@ -11,10 +11,11 @@ function cbSettings(props, data){
 
     $("#selectModelInput").val(model_type)
     $("#batchSizeInput").val(batch_size)
-    $("#selectAutoTrainingInput").val(auto_training)
+    $("#displayBatchSize").text(batch_size)
+    $("#selectAutoTrainingInput").val(""+auto_training)
     $("#selectIntervalInput").val(training_interval)
-    $("selectUIThemeInput").val(ui_theme)
-    
+    $("#selectUIThemeInput").val(ui_theme)
+
 
     $(".loading-state").hide()
     console.log(data)

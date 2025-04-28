@@ -5,5 +5,10 @@ $(document).ready(async function(){
         $("#saveButtons").show()
     })
 
+    $("#batchSizeInput").change(function(event){
+        let batch_size = $("#batchSizeInput").val()
+        $("#displayBatchSize").text(batch_size)
+    })
+
     await settingsRedeemer()
 })
