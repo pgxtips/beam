@@ -144,7 +144,7 @@ def get_settings_data():
             }
         )
     except Exception as e:
-        pass
+        return jsonify( { "status": 500, "status_msg": e })
 
 
     
