@@ -6,18 +6,19 @@
 
 {% block head %} 
 <script src="/js/pages/settings/settingsRedeemer.js"></script>
+<script src="/js/pages/settings/settingsPoster.js"></script>
 <script src="/js/pages/settings/settingsInit.js"></script>
 <link rel="stylesheet" href="/css/settings.css">
 {% endblock %}
 
 
 {% block content %} 
-<form>
+<form id="settingsForm">
     <h3>General Settings</h3>
 
     <div id="selectModelInputCont" class="mb-3">
         <label for="selectModelInput" class="form-label">Default Model</label>
-        <select id="selectModelInput" class="form-select">
+        <select id="selectModelInput" name="default_model" class="form-select">
             <option selected>Select a Model</option>
             <option value="logistic">Logistic Regressor (AI)</option>
             <option value="similarity">Similarity (Weighted)</option>
@@ -26,14 +27,14 @@
     </div>
     <div id="batchSizeCont" class="mb-3">
         <label for="batchSizeInput" class="form-label">Batch Size (<span id="displayBatchSize">0</span>)</label>
-        <input type="range" class="form-range" min="1" max="20" step="1" id="batchSizeInput">
+        <input type="range" name="batch_size" class="form-range" min="1" max="20" step="1" id="batchSizeInput">
     </div>
 
     <h3>Model Settings</h3>
 
     <div id="selectAutoTrainingCont" class="mb-3">
         <label for="selectAutoTrainingInput" class="form-label">Auto Training</label>
-        <select id="selectAutoTrainingInput" class="form-select">
+        <select id="selectAutoTrainingInput" name="auto_training" class="form-select">
             <option value="true">Yes</option>
             <option value="false">No</option>
         </select>
@@ -43,7 +44,7 @@
 
     <div id="selectUIThemeCont" class="mb-3">
         <label for="selectUIThemeInput" class="form-label">Theme</label>
-        <select id="selectUIThemeInput" class="form-select">
+        <select id="selectUIThemeInput" name="ui_theme" class="form-select">
             <option value="light">Light</option>
             <option value="dark">Dark</option>
         </select>
@@ -51,7 +52,7 @@
 
     <div id="saveButtons" class="mb-3" style="display: none;">
         <button class="btn btn-secondary">Cancel</button>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button id="submitButton" type="submit" class="btn btn-primary">Save</button>
     </div>
 </form>
 {% endblock %}

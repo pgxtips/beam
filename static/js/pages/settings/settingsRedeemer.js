@@ -3,20 +3,23 @@ async function settingsRedeemer(){
 }
 
 function cbSettings(props, data){
-    let model_type = data.model_type ?? "N/A"
+    let default_model = data.default_model ?? "N/A"
     let batch_size = data.batch_size ?? "N/A"
     let auto_training = data.auto_training ?? "N/A"
-    let training_interval = data.training_interval ?? "N/A"
     let ui_theme = data.ui_theme ?? "N/A"
 
-    $("#selectModelInput").val(model_type)
+    $("#selectModelInput").val(default_model)
     $("#batchSizeInput").val(batch_size)
     $("#displayBatchSize").text(batch_size)
     $("#selectAutoTrainingInput").val(""+auto_training)
-    $("#selectIntervalInput").val(training_interval)
     $("#selectUIThemeInput").val(ui_theme)
-
 
     $(".loading-state").hide()
     console.log(data)
 }
+
+function cbSettingsPoster(data){
+    console.log(data)
+    $("#saveButtons").hide()
+}
+

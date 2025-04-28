@@ -137,7 +137,7 @@ def get_settings_data():
         return jsonify(
             {
                 "status": 200,
-                "model_type": default_model,
+                "default_model": default_model,
                 "batch_size": batch_size,
                 "auto_training": auto_training,
                 "ui_theme": ui_theme,
@@ -146,8 +146,6 @@ def get_settings_data():
     except Exception as e:
         return jsonify( { "status": 500, "status_msg": e })
 
-
-    
 
 
 # --------------------------
@@ -197,6 +195,38 @@ def post_datasource_data():
             globals.APP_DATA.set_datasource(temp_ds)
 
         return jsonify( { "status": 200 })
+
+    except Exception as e:
+        return jsonify( { "status": 500, "error": e })
+
+
+@APP_SERVER.route("/internal/post/settings", methods=['post'])
+def post_settings_data():
+    try: 
+        from src.models.data_source import DataSource
+        import src.globals as globals
+
+        formData = request.form
+        default_model = formData["default_model"] 
+        batch_size = formData["batch_size"] 
+        auto_training = formData["auto_training"] 
+        ui_theme = formData["ui_theme"] 
+
+        auto_training = auto_training == "true"
+
+        globals.APP_DATA.default_model = default_model
+        globals.APP_DATA.batch_size = batch_size
+        globals.APP_DATA.auto_training = bool(auto_training)
+        globals.APP_DATA.ui_theme = ui_theme
+ 
+        globals.APP_DATA.save_app_data()
+        return jsonify({ 
+            "status": 200,
+            "default_model": default_model,
+            "batch_size": batch_size,
+            "auto_training": auto_training,
+            "ui_theme": ui_theme,
+        })
 
     except Exception as e:
         return jsonify( { "status": 500, "error": e })

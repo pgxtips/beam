@@ -10,5 +10,9 @@ $(document).ready(async function(){
         $("#displayBatchSize").text(batch_size)
     })
 
+    $("#submitButton").click(async function(event){
+        await settingsPoster(event)
+    })
+
     await settingsRedeemer()
 })
