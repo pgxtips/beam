@@ -12,40 +12,29 @@ $(document).ready(async function(){
     })
     
     $("#fileInput").change(async function(event){
+        send_file(event)
+
         let filename = event.currentTarget.files[0].name
         $("#fileNameDisplay").text(filename)
     })
 
 
     $("#submitButton").click(async function(event){
-        event.preventDefault()
-        console.log("uploading")
-
-        let formEl = document.getElementById("datasourceForm")
-        console.log(formEl)
-
-        let formData = new FormData(formEl)
-
-        function cbPost(data){
-            console.log("post complete")
-            console.log(data)
-        }
-
-        await post_controller("/internal/post/datasource", cbPost, formData)
+        send_form(event)
     })
        
     $("#selectInput").change(function(event){
         let selected = $("#selectInput :selected")
-        let option = Number(selected.val())
+        let option = selected.val()
 
         switch(option){
-            case 1:
+            case "demo":
                 selectDemo()
                 break;
-            case 2:
+            case "file":
                 selectFile()
                 break;
-            case 3:
+            case "database":
                 selectDatabase()
                 break;
         }
@@ -55,13 +44,14 @@ $(document).ready(async function(){
 })
 
 
+
 function selectDemo(){
     $("#fileInputButton").attr("disabled", "true")
     $("#selectContent").attr("disabled", "true")
     $("#selectTag").attr("disabled", "true")
     $("#databaseInput").attr("disabled", "true")
 
-    $("#fileNameDisplay").text("DEMO_FILE.json")
+    //$("#fileNameDisplay").text("DEMO_FILE.json")
     $("#fileInputCont").show()
     $("#databaseInputCont").hide()
 }

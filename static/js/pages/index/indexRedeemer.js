@@ -1,5 +1,5 @@
 async function indexRedeemer(){
-    await get_controller("/internal/get/index", cbIndex, {})
+    await get_controller("/internal/get/index", cbIndex, {}, true)
 }
 
 function cbIndex(props, data){

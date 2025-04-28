@@ -1,5 +1,3 @@
-lucide.createIcons();
-
 let activeDict = { 
     "/dashboard": () => document.getElementById("home-item").classList.add("active"), 
     "/dashboard/datasource": () => document.getElementById("datasource-item").classList.add("active"), 
@@ -14,3 +12,7 @@ let path = window.location.pathname;
 if (activeDict[path]) {
     activeDict[path]();
 }
+
+$(document).ready(function(){
+    lucide.createIcons();
+})

@@ -30,6 +30,12 @@ class DSO(ABC):
     def set_content_id_column(self, col_name: str):
         self.content_id_column = col_name
 
+    def get_tag_column(self):
+        return self.tag_column
+
+    def get_content_id_column(self):
+        return self.content_id_column
+
     @abstractmethod
     def get_keys(self) -> Optional[list[str]]:
         pass
@@ -37,6 +43,9 @@ class DSO(ABC):
     @abstractmethod
     def get_data(self): 
         pass
+
+    def get_src(self): 
+        return self.src
 
     @abstractmethod
     def get_tags(self) -> Optional[list[str]]:

@@ -1,5 +1,5 @@
 async function logsRedeemer(){
-    await get_controller("/internal/get/logs", cbLogs, {})
+    await get_controller("/internal/get/logs", cbLogs, {}, true)
 }
 
 function cbLogs(props, data){
@@ -13,7 +13,7 @@ function cbLogs(props, data){
         return cell;
     };
 
-    for (let dp of data) {
+    for (let dp of data.logs) {
         let ts = dp.timestamp ?? "N/A"
         let type = dp.type ?? "N/A"
         let sid = dp.session_id ?? "N/A"

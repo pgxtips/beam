@@ -1,5 +1,5 @@
 async function sessionsRedeemer(){
-    await get_controller("/internal/get/sessions", cbSessions, {})
+    await get_controller("/internal/get/sessions", cbSessions, {}, true)
 }
 
 var SESSION_DATA = {}
@@ -16,7 +16,7 @@ function cbSessions(props, data){
         return cell;
     };
 
-    for (let dp of data){
+    for (let dp of data.logs){
         let session_id = dp.session_id ?? "N/A"
         let created = dp.created ?? "N/A"
         let last_seen = dp.last_seen ?? "N/A"

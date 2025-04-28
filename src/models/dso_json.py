@@ -94,4 +94,3 @@ class DSJsonFileObject(DSO):
             self.load_tags()
 
         return self.tags
-

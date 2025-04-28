@@ -6,6 +6,7 @@
 
 {% block head %} 
 <script src="/js/pages/datasource/datasourceRedeemer.js"></script>
+<script src="/js/pages/datasource/datasourcePoster.js"></script>
 <script src="/js/pages/datasource/datasourceInit.js"></script>
 <link rel="stylesheet" href="/css/datasource.css">
 {% endblock %} 
@@ -35,9 +36,9 @@
         <label for="selectInput" class="form-label">Source Select</label>
         <select id="selectInput" name="sourceType" class="form-select">
             <option selected>Select a Source</option>
-            <option value="1">Demo (File)</option>
-            <option value="2">File (JSON)</option>
-            <option value="3">Database</option>
+            <option value="demo">Demo (File)</option>
+            <option value="file">File (JSON)</option>
+            <option value="database">Database</option>
         </select>
         <div id="selectInputHelp" class="form-text">A source which associates content IDs, content and tags together</div>
     </div>

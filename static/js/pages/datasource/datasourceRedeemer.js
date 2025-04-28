@@ -1,5 +1,5 @@
 async function datasourceRedeemer(){
-    await get_controller("/internal/get/datasource", cbDatasource, {})
+    await get_controller("/internal/get/datasource", cbDatasource, {}, true)
 }
 
 function cbDatasource(props, data){
@@ -14,28 +14,29 @@ function cbDatasource(props, data){
     $("#selectInput").val(source_type)
 
     switch (source_type){
-        case "1":
+        case "demo":
             $("#fileNameDisplay").text(source_data)
             selectDemo()
             break;
-        case "2":
+        case "file":
             $("#fileNameDisplay").text(source_data)
             selectFile()
             break;
-        case "3":
+        case "database":
             selectDatabase()
             $("#databaseInput").val(source_data)
             break;
     }
 
     // build attributes of content and tag selects
-    for (let [idx, attr] of attributes.entries()) {
+    for (let attr of attributes) {
         let op1 = document.createElement("option")
         let op2 = document.createElement("option")
 
-        $(op1).val(idx)
+        $(op1).val(attr)
         $(op1).text(attr)
-        $(op2).val(idx)
+
+        $(op2).val(attr)
         $(op2).text(attr)
 
         $("#selectContent").append(op1)
@@ -47,4 +48,39 @@ function cbDatasource(props, data){
 
     $(".saveButtons").hide()
     $(".loading-state").hide()
+}
+
+function cbAttributes(data){
+    console.log(data)
+    let keys = data.keys
+
+
+    $("#selectContent").html("")
+    $("#selectTag").html("")
+
+    // build attributes of content and tag selects
+    for (let attr of keys) {
+        let op1 = document.createElement("option")
+        let op2 = document.createElement("option")
+
+        $(op1).val(attr)
+        $(op1).text(attr)
+
+        $(op2).val(attr)
+        $(op2).text(attr)
+
+        $("#selectContent").append(op1)
+        $("#selectTag").append(op2)
+    }
+
+    $(".saveButtons").hide()
+    $(".loading-state").hide()
+}
+
+
+function cbFormPost(data){
+    console.log("form post complete")
+    console.log(data)
+
+    $("#saveButtons").hide()
 }
