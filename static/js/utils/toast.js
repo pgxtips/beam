@@ -1,4 +1,7 @@
-function createToast(status, headerMsg, msg){
+function createToast(json, headerMsg, msg){
+
+    let status = json.status
+    let statusMsg = json.status_msg
 
     let header = ""
 
@@ -30,7 +33,7 @@ function createToast(status, headerMsg, msg){
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
           </div>
           <div class="toast-body">
-            ${msg}
+            ${statusMsg ? statusMsg + " - " : ""} ${msg}
           </div>
         </div>
    `)

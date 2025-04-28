@@ -20,6 +20,9 @@ class SessionHandler:
 
     def get_sessions(self):
         return self.__session
+
+    def get_count(self):
+        return len(self.__session)
      
     def get_preferences(self, session_id: str):
         session_data = self.__session[session_id] 

@@ -7,14 +7,29 @@ from src.utils import *
 # Internal API routes 
 @APP_SERVER.route("/internal/get/index", methods=['get'])
 def get_index_data():
-    return jsonify(
-        {
+    import src.globals as globals
+
+    try:
+        rec_requests = globals.APP_DATA.rec_requests
+        active_sessions = globals.APP_DATA.session_handler.get_count()
+        system_status = globals.APP_DATA.get_system_status()
+
+        return jsonify({
             "status": 200,
+            "rec_requests": rec_requests,
+            "active_sessions": active_sessions,
+            "system_status": system_status,
+        })
+
+    except Exception as e:
+        return jsonify({
+            "status": 500,
+            "status_msg": e,
             "rec_requests": "43",
             "active_sessions": "2",
             "system_status": "Operational",
-        }
-    )
+        })
+
 
 @APP_SERVER.route("/internal/get/datasource", methods=['get'])
 def get_datasource_data():

@@ -13,7 +13,7 @@ async function post_controller(endpoint, callback, data, send_toast){
 
         let status = json.status
 
-        if (send_toast){ createToast(status, endpoint, "successfully made request") }
+        if (send_toast){ createToast(json, endpoint, "successfully made request") }
 
         return callback(json)
     } catch (e) {

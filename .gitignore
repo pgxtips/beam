@@ -311,3 +311,7 @@ dist
 client/build/
 
 uploads/
+
+
+**/package-lock.json
+**/uv.lock

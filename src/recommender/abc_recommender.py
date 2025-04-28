@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
 class Recommender(ABC):
+
     @abstractmethod
     def train(self, session_id):
         pass

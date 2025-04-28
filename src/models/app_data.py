@@ -17,6 +17,8 @@ class AppData:
             "similarity": None
         }
 
+        self.rec_requests = 0
+
         self.system_status = "Incomplete"
         self.logger = Logger()
         self.default_model = "logistic"
@@ -26,6 +28,9 @@ class AppData:
 
     def load_conf(self):
         pass
+
+    def get_system_status(self):
+        return "Operational"
 
     def get_session_handler(self):
         return self.session_handler
