@@ -27,14 +27,28 @@ class AppData:
         self.auto_training = True
         self.ui_theme = "light"
 
-    @staticmethod
-    def load_app_data(path="app_data.pkl"):
+    def load_app_data(self, path="persistent/app_data.pkl"):
         import os
-        if os.path.exists("app_data.pkl"):
+        if os.path.exists(path):
             with open(path, "rb") as f:
-                return pickle.load(f)
+                loaded_data = pickle.load(f)
+                self.session_handler = loaded_data.session_handler
+                self.data_source = loaded_data.data_source
+                self.temp_data_source = loaded_data.temp_data_source
+                self.models = loaded_data.models
+                self.rec_requests = loaded_data.rec_requests
+                self.system_status = loaded_data.system_status
+                self.logger = loaded_data.logger
+                self.default_model = loaded_data.default_model
+                self.batch_size = loaded_data.batch_size
+                self.auto_training = loaded_data.auto_training
+                self.ui_theme = loaded_data.ui_theme
 
-    def save_app_data(self, path="app_data.pkl"):
+    def save_app_data(self, path="persistent/app_data.pkl"):
+        import os
+        dir_path = os.path.dirname(path)
+        os.makedirs(dir_path, exist_ok=True)
+
         with open(path, "wb") as f:
             pickle.dump(self, f)
 

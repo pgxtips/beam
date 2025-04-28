@@ -316,4 +316,4 @@ uploads/
 **/package-lock.json
 uv.lock
 
-app_data.pkl
+persistent/*

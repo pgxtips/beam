@@ -171,7 +171,7 @@ def post_datasource_data():
             file = request.files.get("fileInput")
             save_file(file)
 
-            path = "uploads/" + file.filename 
+            path = "persistent/uploads/" + file.filename 
             data_source = DataSource("file", path)
             keys = data_source.get_keys()
 

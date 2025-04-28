@@ -37,13 +37,13 @@ def get_network_usage():
 def save_file(file):
     
     # ensure the directory uploads exists
-    if not os.path.isdir("uploads"):
-        os.mkdir("uploads")
+    if not os.path.isdir("persistent/uploads/"):
+        os.mkdir("persistent/uploads/")
 
     # upload file
     if file:
         print("Received file:", file.filename)
-        file.save("uploads/" + secure_filename(file.filename))
+        file.save("persistent/uploads/" + secure_filename(file.filename))
     else:
         print("No file uploaded!")
 
