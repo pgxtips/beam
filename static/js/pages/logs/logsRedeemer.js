@@ -1,5 +1,5 @@
 async function logsRedeemer(){
-    await get_controller("/internal/logs", cbLogs, {})
+    await get_controller("/internal/get/logs", cbLogs, {})
 }
 
 function cbLogs(props, data){

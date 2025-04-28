@@ -1,6 +1,6 @@
 async function monitorRedeemer(props){
     console.log(props)
-    await get_controller("/internal/monitor", cbMonitor, props)
+    await get_controller("/internal/get/monitor", cbMonitor, props)
 }
 
 function cbMonitor(props, data){

@@ -1,4 +1,4 @@
-from flask import jsonify, render_template
+from flask import jsonify, render_template, redirect
 from src.app import app_server
 
 # dashboard routes
@@ -26,6 +26,10 @@ def logs():
 def settings():
     return render_template("settings.html")
 
+
+@app_server.errorhandler(404)
+def page_not_found(e):
+    return redirect('/dashboard')
 
 # # serve React App
 # @app_server.route('/', defaults={'path': ''})

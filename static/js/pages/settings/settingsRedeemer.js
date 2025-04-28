@@ -1,5 +1,5 @@
 async function settingsRedeemer(){
-    await get_controller("/internal/settings", cbSettings, {})
+    await get_controller("/internal/get/settings", cbSettings, {})
 }
 
 function cbSettings(props, data){

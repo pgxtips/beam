@@ -1,5 +1,5 @@
 async function datasourceRedeemer(){
-    await get_controller("/internal/datasource", cbDatasource, {})
+    await get_controller("/internal/get/datasource", cbDatasource, {})
 }
 
 function cbDatasource(props, data){

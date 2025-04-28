@@ -1,9 +1,9 @@
-from flask import jsonify
+from flask import jsonify, request
 from src.app import app_server
 from src.utils import *
 
 # Internal API routes 
-@app_server.route("/internal/index", methods=['get'])
+@app_server.route("/internal/get/index", methods=['get'])
 def get_index_data():
     return jsonify(
         {
@@ -13,7 +13,7 @@ def get_index_data():
         }
     )
 
-@app_server.route("/internal/datasource", methods=['get'])
+@app_server.route("/internal/get/datasource", methods=['get'])
 def get_datasource_data():
     return jsonify(
         {
@@ -25,7 +25,7 @@ def get_datasource_data():
         }
     )
 
-@app_server.route("/internal/sessions", methods=['get'])
+@app_server.route("/internal/get/sessions", methods=['get'])
 def get_session_data():
     return jsonify([
         {
@@ -78,7 +78,7 @@ def get_session_data():
         }
     ])
 
-@app_server.route("/internal/monitor", methods=['get'])
+@app_server.route("/internal/get/monitor", methods=['get'])
 def get_monitor_data():
     cpu_usage_data = get_cpu_usage()
     memory_usage_data = get_memory_usage()
@@ -93,7 +93,7 @@ def get_monitor_data():
         }
     )
 
-@app_server.route("/internal/logs", methods=['get'])
+@app_server.route("/internal/get/logs", methods=['get'])
 def get_log_data():
     return jsonify([
         {
@@ -157,7 +157,7 @@ def get_log_data():
         }
     ])
 
-@app_server.route("/internal/settings", methods=['get'])
+@app_server.route("/internal/get/settings", methods=['get'])
 def get_settings_data():
     return jsonify(
         {
@@ -166,5 +166,22 @@ def get_settings_data():
             "auto_training": "1",
             "training_interval": "5",
             "ui_theme": "1",
+        }
+    )
+
+
+# --------------------------
+#       POST Requests
+# --------------------------
+
+@app_server.route("/internal/post/datasource", methods=['post'])
+def post_datasource_data():
+
+    formData = request.form.to_dict()
+    print(formData)
+
+    return jsonify(
+        {
+            "status": "200",
         }
     )

@@ -8,6 +8,23 @@ $(document).ready(async function(){
         console.log("input changed")
         $("#saveButtons").show()
     })
+
+    $("#submitButton").click(async function(event){
+        event.preventDefault()
+        console.log("uploading")
+
+        let formEl = document.getElementById("datasourceForm")
+        console.log(formEl)
+        let formData = new FormData(formEl)
+        console.log(formData)
+        
+        function cbPost(data){
+            console.log("post complete")
+            console.log(data)
+        }
+
+        await post_controller("/internal/post/datasource", cbPost, formData)
+    })
        
     $("#selectInput").change(function(event){
         let selected = $("#selectInput :selected")
