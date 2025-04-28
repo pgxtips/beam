@@ -1,9 +1,10 @@
 from flask import jsonify, request
-from src.app import app_server
+
+from src.globals import APP_SERVER 
 from src.utils import *
 
 # Internal API routes 
-@app_server.route("/internal/get/index", methods=['get'])
+@APP_SERVER.route("/internal/get/index", methods=['get'])
 def get_index_data():
     return jsonify(
         {
@@ -13,7 +14,7 @@ def get_index_data():
         }
     )
 
-@app_server.route("/internal/get/datasource", methods=['get'])
+@APP_SERVER.route("/internal/get/datasource", methods=['get'])
 def get_datasource_data():
     return jsonify(
         {
@@ -25,7 +26,7 @@ def get_datasource_data():
         }
     )
 
-@app_server.route("/internal/get/sessions", methods=['get'])
+@APP_SERVER.route("/internal/get/sessions", methods=['get'])
 def get_session_data():
     return jsonify([
         {
@@ -78,7 +79,7 @@ def get_session_data():
         }
     ])
 
-@app_server.route("/internal/get/monitor", methods=['get'])
+@APP_SERVER.route("/internal/get/monitor", methods=['get'])
 def get_monitor_data():
     cpu_usage_data = get_cpu_usage()
     memory_usage_data = get_memory_usage()
@@ -93,7 +94,7 @@ def get_monitor_data():
         }
     )
 
-@app_server.route("/internal/get/logs", methods=['get'])
+@APP_SERVER.route("/internal/get/logs", methods=['get'])
 def get_log_data():
     return jsonify([
         {
@@ -157,7 +158,7 @@ def get_log_data():
         }
     ])
 
-@app_server.route("/internal/get/settings", methods=['get'])
+@APP_SERVER.route("/internal/get/settings", methods=['get'])
 def get_settings_data():
     return jsonify(
         {
@@ -174,14 +175,16 @@ def get_settings_data():
 #       POST Requests
 # --------------------------
 
-@app_server.route("/internal/post/datasource", methods=['post'])
+@APP_SERVER.route("/internal/post/datasource", methods=['post'])
 def post_datasource_data():
+    try: 
+        formData = request.form
+        print("Form Data:", formData)
 
-    formData = request.form.to_dict()
-    print(formData)
+        file = request.files.get("fileInput")
+        save_file(file)
 
-    return jsonify(
-        {
-            "status": "200",
-        }
-    )
+        return jsonify( { "status": "200" })
+
+    except Exception as e:
+        return jsonify( { "status": "500", "error": e })

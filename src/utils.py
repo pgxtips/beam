@@ -1,6 +1,9 @@
 
-import psutil
+import os 
 import time
+import psutil
+
+from werkzeug.utils import secure_filename
 
 def flatten_dict(y):
     out = {}
@@ -30,3 +33,17 @@ def get_network_usage():
     bytes_recv_per_sec = (io2.bytes_recv - io1.bytes_recv) / 1.0 
 
     return bytes_recv_per_sec, bytes_sent_per_sec
+
+def save_file(file):
+    
+    # ensure the directory uploads exists
+    if not os.path.isdir("uploads"):
+        os.mkdir("uploads")
+
+    # upload file
+    if file:
+        print("Received file:", file.filename)
+        file.save("uploads/" + secure_filename(file.filename))
+    else:
+        print("No file uploaded!")
+

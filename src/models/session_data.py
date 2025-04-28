@@ -1,5 +1,7 @@
 class SessionData:
     def __init__(self):
+        from src.globals import APP_DATA 
+        self.__model: str = APP_DATA.get_default_model()
         # list of content_ids 
         self.__preferences: set[str] = set()
         self.__history = {}

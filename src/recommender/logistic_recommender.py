@@ -1,4 +1,4 @@
-from src.app import session_handler 
+import src.globals as globals
 
 from .abc_recommender import Recommender
 
@@ -24,8 +24,12 @@ class LogisticRecommender(Recommender):
         self.id_to_index = {cid: i for i, cid in enumerate(content_ids)}
 
     def train(self, session_id):
-        liked = session_handler.get_preprocessed_likes(session_id)
-        disliked = session_handler.get_preprocessed_dislikes(session_id)
+
+        assert globals.APP_DATA
+        SESSION_HANDLER = globals.APP_DATA.get_session_handler()
+
+        liked = SESSION_HANDLER.get_preprocessed_likes(session_id)
+        disliked = SESSION_HANDLER.get_preprocessed_dislikes(session_id)
 
         interactions = (
             [[cid, 1] for cid in liked] +
@@ -47,8 +51,8 @@ class LogisticRecommender(Recommender):
             self.classifiers[session_id].partial_fit(
                 X_stack, y, classes=[0, 1]
             )
-            session_handler.process_likes(session_id)
-            session_handler.process_dislikes(session_id)
+            SESSION_HANDLER.process_likes(session_id)
+            SESSION_HANDLER.process_dislikes(session_id)
 
     def recommend(self, session_id, k=10):
         self.__sync_session_model(session_id)
@@ -68,10 +72,14 @@ class LogisticRecommender(Recommender):
         return rec_ids
 
     def __create_classifier(self, session_id):
+
+        assert globals.APP_DATA
+        SESSION_HANDLER = globals.APP_DATA.get_session_handler()
+
         vocab = self.vectorizer.vocabulary_
         vector = lil_matrix((1, self.content_matrix.shape[1]), dtype=float)
 
-        prefs = session_handler.get_preferences(session_id)
+        prefs = SESSION_HANDLER.get_preferences(session_id)
 
         for tag in prefs:
             if tag in vocab:
@@ -87,13 +95,17 @@ class LogisticRecommender(Recommender):
         clf.partial_fit(np.zeros((1, self.content_matrix.shape[1])), [0], classes=[0, 1])
 
     def __sync_session_model(self, session_id: str):
+
+        assert globals.APP_DATA
+        SESSION_HANDLER = globals.APP_DATA.get_session_handler()
+
         # ensure a classifier has been created for current session
         if (not self.classifiers.get(session_id)):
             self.__create_classifier(session_id)
 
         # ensure the model has update to date preferences
         old_prefs = self.session_preferences.get(session_id, set())
-        new_prefs = session_handler.get_preferences(session_id)
+        new_prefs = SESSION_HANDLER.get_preferences(session_id)
 
         if (old_prefs != new_prefs):
             vocab = self.vectorizer.vocabulary_

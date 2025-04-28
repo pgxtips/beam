@@ -2,9 +2,15 @@ from src.recommender.logistic_recommender import LogisticRecommender
 from src.recommender.data_processing import prepare_data
 from src.models.data_source import DataSource
 
-from src.app import session_handler 
+import src.globals as globals
+import src.app
 
 def test_lr_user_pref():
+
+    app_data = globals.APP_DATA
+    assert app_data
+    session_handler = app_data.get_session_handler()
+
     data_source  = DataSource("file", "./data/youtube_data.json")
     data_source.set_content_id_column("id")
     data_source.set_tag_column("snippet_tags")
@@ -24,6 +30,11 @@ def test_lr_user_pref():
 
 
 def test_lr_likes_content():
+
+    app_data = globals.APP_DATA
+    assert app_data
+    session_handler = app_data.get_session_handler()
+
     data_source  = DataSource("file", "./data/youtube_data.json")
     data_source.set_content_id_column("id")
     data_source.set_tag_column("snippet_tags")
@@ -47,6 +58,11 @@ def test_lr_likes_content():
 
 
 def test_lr_dislike_content():
+
+    app_data = globals.APP_DATA
+    assert app_data
+    session_handler = app_data.get_session_handler()
+
     data_source  = DataSource("file", "./data/youtube_data.json")
     data_source.set_content_id_column("id")
     data_source.set_tag_column("snippet_tags")

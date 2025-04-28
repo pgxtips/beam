@@ -1,45 +1,47 @@
 from flask import jsonify, render_template, redirect
-from src.app import app_server
+from src.globals import APP_SERVER
+
+assert APP_SERVER
 
 # dashboard routes
-@app_server.route("/dashboard", methods=['get'])
+@APP_SERVER.route("/dashboard", methods=['get'])
 def index():
     return render_template("index.html")
 
-@app_server.route("/dashboard/datasource", methods=['get'])
+@APP_SERVER.route("/dashboard/datasource", methods=['get'])
 def datasource():
     return render_template("datasource.html")
 
-@app_server.route("/dashboard/sessions", methods=['get'])
+@APP_SERVER.route("/dashboard/sessions", methods=['get'])
 def sessions():
     return render_template("sessions.html")
 
-@app_server.route("/dashboard/monitor", methods=['get'])
+@APP_SERVER.route("/dashboard/monitor", methods=['get'])
 def monitor():
     return render_template("monitor.html")
 
-@app_server.route("/dashboard/logs", methods=['get'])
+@APP_SERVER.route("/dashboard/logs", methods=['get'])
 def logs():
     return render_template("logs.html")
 
-@app_server.route("/dashboard/settings", methods=['get'])
+@APP_SERVER.route("/dashboard/settings", methods=['get'])
 def settings():
     return render_template("settings.html")
 
 
-@app_server.errorhandler(404)
+@APP_SERVER.errorhandler(404)
 def page_not_found(e):
     return redirect('/dashboard')
 
 # # serve React App
-# @app_server.route('/', defaults={'path': ''})
-# @app_server.route('/<path:path>')
+# @APP_SERVER.route('/', defaults={'path': ''})
+# @APP_SERVER.route('/<path:path>')
 # def catch_all(path):
 #     # Make sure that all non-API routes serve index.html
-#     return app_server.send_static_file("index.html")
+#     return APP_SERVER.send_static_file("index.html")
 #
-# @app_server.errorhandler(404)
+# @APP_SERVER.errorhandler(404)
 # def reroute(_err):
 #     # Make sure that all non-API routes serve index.html
-#     return app_server.send_static_file("index.html")
+#     return APP_SERVER.send_static_file("index.html")
 #

@@ -1,7 +1,7 @@
 from flask import jsonify, render_template
-from src.app import app_server
+from src.globals import APP_SERVER
 
 # External API routes 
-@app_server.route("/extern/getRecommendations", methods=['get'])
+@APP_SERVER.route("/extern/getRecommendations", methods=['get'])
 def get_recommendations():
     return jsonify({"status": 200})

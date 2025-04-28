@@ -16,6 +16,10 @@ class SessionHandler:
         # create a new instance of session
         self.__session[id] = SessionData()
         return str(id)
+
+
+    def get_sessions(self):
+        return self.__session
      
     def get_preferences(self, session_id: str):
         session_data = self.__session[session_id] 

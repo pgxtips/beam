@@ -33,7 +33,7 @@
 <form id="datasourceForm">
     <div id="selectInputCont" class="mb-3">
         <label for="selectInput" class="form-label">Source Select</label>
-        <select id="selectInput" class="form-select">
+        <select id="selectInput" name="sourceType" class="form-select">
             <option selected>Select a Source</option>
             <option value="1">Demo (File)</option>
             <option value="2">File (JSON)</option>
@@ -43,7 +43,7 @@
     </div>
     <div id="fileInputCont" class="mb-3" style="display: none;">
         <label for="fileInput" class="form-label">Source File</label>
-        <input class="form-control" type="file" id="fileInput" style="display: none;">
+        <input class="form-control" name="fileInput" type="file" id="fileInput" style="display: none;">
         <br/>
         <button id="fileInputButton" type="button" class="btn btn-primary">Upload</button>
         <span id="fileNameDisplay" class="ms-2">No file chosen</span>
@@ -51,19 +51,19 @@
     </div>
     <div id="databaseInputCont" class="mb-3" style="display: none;">
         <label for="databaseInput" class="form-label">Connection URL</label>
-        <input type="text" class="form-control" id="databaseInput">
+        <input type="text" name="databaseInput" class="form-control" id="databaseInput">
         <div id="databaseInput" class="form-text">A database connection string eg. postgres://YourUserName:YourPassword@YourHostname:5432/YourDatabaseName</div>
     </div>
     <div id="selectContentCont" class="mb-3">
         <label for="selectContent" class="form-label">Select Content Column</label>
-        <select id="selectContent" class="form-select">
-            <option value="-1" selected>Select Content Column</option>
+        <select id="selectContent" name="contentColumn" class="form-select">
+            <option selected>Select Content Column</option>
         </select>
         <div id="selectContentHelp" class="form-text">Select the column label which contains the content to be delivered</div>
     </div>
     <div id="selectTagCont" class="mb-3">
         <label for="selectTag" class="form-label">Select Tag Column</label>
-        <select id="selectTag" class="form-select">
+        <select id="selectTag" name="tagColumn" class="form-select">
             <option selected>Select Tag Column</option>
         </select>
         <div id="selectTagHelp" class="form-text">Select the column label which contains the tags</div>
