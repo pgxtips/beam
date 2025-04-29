@@ -1,5 +1,4 @@
 async function monitorRedeemer(props){
-    console.log(props)
     await get_controller("/internal/get/monitor", cbMonitor, props, false)
 }
 
@@ -8,7 +7,6 @@ function cbMonitor(props, data){
     let memory_usage = data.memory_usage ?? 0
     let net_in = data.net_in ?? 0
     let net_out = data.net_out ?? 0
-    console.log(data)
 
     const timestamp = new Date().toLocaleTimeString();
 
