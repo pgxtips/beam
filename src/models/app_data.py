@@ -2,25 +2,26 @@ import uuid
 import pickle 
 from typing import Optional
 
+from src.recommender.abc_recommender import Recommender
 from src.models.session_data import SessionData
 from src.models.session_handler import SessionHandler
 from src.models.logger import Logger 
 
 class AppData:
     def __init__(self):
-        self.session_handler = SessionHandler() 
+        self.__session_handler = SessionHandler() 
         self.data_source = None
 
         self.temp_data_source = None
 
-        self.models = {
+        self.__models: dict[str, Optional[Recommender]] = {
             "logistic": None,
             "similarity": None
         }
 
         self.rec_requests = 0
 
-        self.system_status = "Incomplete"
+        self.system_status = "Inoperative"
         self.logger = Logger()
         self.default_model = "logistic"
         self.batch_size = 5
@@ -32,10 +33,10 @@ class AppData:
         if os.path.exists(path):
             with open(path, "rb") as f:
                 loaded_data = pickle.load(f)
-                self.session_handler = loaded_data.session_handler
+                self.__session_handler = loaded_data.__session_handler
                 self.data_source = loaded_data.data_source
                 self.temp_data_source = loaded_data.temp_data_source
-                self.models = loaded_data.models
+                self.__models = loaded_data.__models
                 self.rec_requests = loaded_data.rec_requests
                 self.system_status = loaded_data.system_status
                 self.logger = loaded_data.logger
@@ -53,13 +54,41 @@ class AppData:
             pickle.dump(self, f)
 
     def get_system_status(self):
-        return "Operational"
+        if not self.data_source:
+            return "No Data Source"
+        else:
+            return "Operational"
 
     def get_session_handler(self):
-        return self.session_handler
+        return self.__session_handler
 
     def get_default_model(self):
         return self.default_model
+
+    def get_model(self, session_model_str):
+        if not session_model_str in self.__models.keys():
+            raise Exception(f"No recommender created for the '{session_model_str}' model")
+
+        if not self.__models.get(session_model_str):
+            self.build_models()
+
+        return self.__models.get(session_model_str)
+
+
+    def build_models(self):
+        from src.recommender.data_processing import prepare_data
+        from src.recommender.logistic_recommender import LogisticRecommender
+
+        if not self.data_source:
+            raise Exception("There is not a valid datasource")
+
+        # build logistic recommender
+        ids, vectoriser, X = prepare_data(self.data_source)
+        logistic_recommender = LogisticRecommender(X, ids, vectoriser) 
+        self.__models["logistic"] = logistic_recommender
+
+        # build similarity recommender
+        # ...
 
     def set_session_handler(self, session_handler):
         self.session_handler = session_handler

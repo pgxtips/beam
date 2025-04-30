@@ -1,3 +1,5 @@
+from datetime import datetime 
+
 class SessionData:
     def __init__(self):
         from src.globals import APP_DATA 
@@ -10,6 +12,22 @@ class SessionData:
 
         self.__preprocessed_likes: set[str] = set()
         self.__preprocessed_dislikes: set[str] = set()
+
+        self.__last_train: datetime = datetime.now()
+        self.__last_seen: datetime = datetime.now()
+        self.__created: datetime = datetime.now()
+
+    def get_model(self):
+        return self.__model
+
+    def get_last_seen(self):
+        return self.__last_seen
+
+    def get_created(self):
+        return self.__created
+
+    def get_last_train(self):
+        return self.__last_train
 
     def get_preferences(self):
         return self.__preferences

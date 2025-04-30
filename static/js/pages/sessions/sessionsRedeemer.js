@@ -16,7 +16,7 @@ function cbSessions(props, data){
         return cell;
     };
 
-    for (let dp of data.logs){
+    for (let dp of data.session_data){
         let session_id = dp.session_id ?? "N/A"
         let created = dp.created ?? "N/A"
         let last_seen = dp.last_seen ?? "N/A"
