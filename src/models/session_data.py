@@ -59,7 +59,13 @@ class SessionData:
             self.__preferences.add(pref)
 
     def add_like(self, cid: str):
-        self.__preprocessed_likes.add(cid)
+        if cid in self.__preprocessed_likes:
+            self.__preprocessed_likes.remove(cid)
+        else:
+            self.__preprocessed_likes.add(cid)
 
     def add_dislike(self, cid: str):
-        self.__preprocessed_dislikes.add(cid)
+        if cid in self.__preprocessed_dislikes:
+            self.__preprocessed_dislikes.remove(cid)
+        else:
+            self.__preprocessed_dislikes.add(cid)

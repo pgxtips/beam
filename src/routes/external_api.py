@@ -49,6 +49,8 @@ def like_content():
 @APP_SERVER.route("/external/dislike", methods=['post'])
 def dislike_content():
     try: 
+        import src.globals as globals
+
         formData = request.form
         print(formData)
         session_id = formData["session_id"]
@@ -59,10 +61,12 @@ def dislike_content():
         if not session_data:
             raise Exception(f"No session exists for: {session_id}")
 
-        session_data.dislike_content(content_id)
+        session_data.add_dislike(content_id)
 
         return jsonify({ "status": 200 })
     except Exception as e:
+        print(traceback.format_exc())
+        print(e)
         return jsonify({ "status": 500, "status_msg": str(e)})
 
 @APP_SERVER.route("/external/recommend", methods=['post'])
