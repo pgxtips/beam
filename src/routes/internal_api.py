@@ -68,23 +68,6 @@ def get_datasource_data():
 @APP_SERVER.route("/internal/get/sessions", methods=['get'])
 def get_session_data():
 
-    # {
-    #     "session_id": "a1b2-c3",
-    #     "created": "2025-04-24T12:30:10Z",
-    #     "last_seen": "2025-04-24T12:59:42Z",
-    #     "preferences": ["coding", "technology"],
-    #     "likes":   ["Q_03FWDBZG0", "ZLOhiGZZhVs", "zltBg1bUJjI"],
-    #     "dislikes": ["ZvXoRoXm8DU"],
-    #     "last_recs": [
-    #         {"id": "Q_03FWDBZG0", "score": 0.87},
-    #         {"id": "ZLOhiGZZhVs", "score": 0.85},
-    #         {"id": "zltBg1bUJjI", "score": 0.83},
-    #         {"id": "QM9j_qQZDnY", "score": 0.78},
-    #         {"id": "z7do1hhb6fE", "score": 0.76}
-    #     ],
-    #     "model_samples": 7,
-    #     "last_trained": "2025-04-24T12:59:05Z"
-    # }
 
     try:
         import src.globals as globals
@@ -101,9 +84,9 @@ def get_session_data():
                     "session_id": key,
                     "created": val.get_created() or "N/A",
                     "last_seen": val.get_last_seen() or "N/A",
-                    "preferences": val.get_preferences() or [],
-                    "likes":   val.get_all_likes() or [],
-                    "dislikes": val.get_all_dislikes() or [],
+                    "preferences": [x for x in val.get_preferences()] or [],
+                    "likes":   [x for x in val.get_all_likes()] or [],
+                    "dislikes": [x for x in val.get_all_dislikes()] or [],
                     "last_trained": val.get_last_train() or "N/A"
                 } 
                 for key, val in session_data.items()
