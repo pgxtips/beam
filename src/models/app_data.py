@@ -3,6 +3,9 @@ import pickle
 from typing import Optional
 
 from src.recommender.abc_recommender import Recommender
+from src.recommender.data_processing import prepare_data
+from src.recommender.logistic_recommender import LogisticRecommender
+
 from src.models.session_data import SessionData
 from src.models.session_handler import SessionHandler
 from src.models.logger import Logger 
@@ -76,9 +79,6 @@ class AppData:
 
 
     def build_models(self):
-        from src.recommender.data_processing import prepare_data
-        from src.recommender.logistic_recommender import LogisticRecommender
-
         if not self.data_source:
             raise Exception("There is not a valid datasource")
 

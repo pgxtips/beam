@@ -6,7 +6,7 @@ class SessionData:
         self.__model: str = APP_DATA.get_default_model()
         # list of content_ids 
         self.__preferences: set[str] = set()
-        self.__history = {}
+        self.__history: set[str] = set()
         self.__likes: set[str] = set()
         self.__dislikes: set[str] = set()
 
@@ -16,6 +16,12 @@ class SessionData:
         self.__last_train: datetime = datetime.now()
         self.__last_seen: datetime = datetime.now()
         self.__created: datetime = datetime.now()
+
+    def add_history(self, cid: str):
+        self.__history.add(cid)
+
+    def get_history(self) -> set[str]:
+        return self.__history
 
     def get_model(self):
         return self.__model

@@ -1,4 +1,5 @@
 import src.globals as globals
+from src.models import session_handler
 
 from .abc_recommender import Recommender
 
@@ -57,18 +58,36 @@ class LogisticRecommender(Recommender):
     def recommend(self, session_id, k=10):
         self.__sync_session_model(session_id)
 
+        assert globals.APP_DATA
+
+        SESSION_HANDLER = globals.APP_DATA.get_session_handler()
+        assert SESSION_HANDLER
+
+        session_data = SESSION_HANDLER.get_session_data(session_id)
+
         model = self.classifiers[session_id]
         X = self.content_matrix
         probs = model.predict_proba(X)[:, 1]
         ranked_indices = np.argsort(probs)[::-1]
 
         rec_ids = []
+
+        history_ids = session_data.get_history()
+
         for idx in ranked_indices:
             cid = self.content_ids[idx]
-            if cid not in rec_ids:
+            if cid not in history_ids and cid not in rec_ids:
                 rec_ids.append(cid)
             if len(rec_ids) == k:
                 break
+
+        assert session_data 
+
+        for cid in rec_ids:
+            session_data.add_history(cid)
+
+        globals.APP_DATA.save_app_data()
+
         return rec_ids
 
     def __create_classifier(self, session_id):

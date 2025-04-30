@@ -21,6 +21,7 @@ function loadRowData(event){
     $("#info-activeModel").text()
     $("#info-lastTrain").text(data.last_trained)
     $("#info-modelSamples").text(data.model_samples)
+    $("#info-history").text(data.history.join(", "))
 
     $("#noTableRowsSelectedText").hide()
     $("#sessionInfo").show()

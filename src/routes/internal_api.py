@@ -87,7 +87,8 @@ def get_session_data():
                     "preferences": [x for x in val.get_preferences()] or [],
                     "likes":   [x for x in val.get_all_likes()] or [],
                     "dislikes": [x for x in val.get_all_dislikes()] or [],
-                    "last_trained": val.get_last_train() or "N/A"
+                    "last_trained": val.get_last_train() or "N/A",
+                    "history": [x for x in val.get_history()] or [],
                 } 
                 for key, val in session_data.items()
              ]

@@ -26,12 +26,13 @@ function cbSessions(props, data){
         let last_recs = dp.last_recs ?? "N/A"
         let model_samples = dp.model_samples ?? "N/A"
         let last_trained = dp.last_trained ?? "N/A"
+        let history = dp.history ?? "N/A"
 
         let DATA_ENTRY = {
-            session_id, created, last_seen, preferences, likes, dislikes, last_recs, model_samples, last_trained,
+            session_id, created, last_seen, preferences, likes, dislikes, last_recs, model_samples, last_trained, history
         }
-        SESSION_DATA[session_id] = DATA_ENTRY
 
+        SESSION_DATA[session_id] = DATA_ENTRY
 
         let tr = document.createElement("tr")
         $(tr).attr("data-sid", session_id)
@@ -42,6 +43,7 @@ function cbSessions(props, data){
         tr.append(td(likes.length))
         tr.append(td(dislikes.length))
         tr.append(td(preferences.length))
+        tr.append(td(history.length))
 
         body.append(tr)
     }

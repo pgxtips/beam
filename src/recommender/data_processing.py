@@ -39,12 +39,15 @@ def data_extraction(ds: DataSource):
 
     return ids, tag_strings, tag_count
 
+def countTokenizer(x):
+    return x.split()
+
 def prepare_data(ds: DataSource):
     [ids, tags, tag_count] = data_extraction(ds)
 
     # build sparse CountVectorizer
     vectoriser = CountVectorizer(
-        tokenizer=lambda x: x.split(),
+        tokenizer=countTokenizer,
         token_pattern=None,
         max_features=tag_count
     )

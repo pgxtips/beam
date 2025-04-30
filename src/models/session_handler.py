@@ -1,4 +1,5 @@
 import uuid
+from typing import Optional
 from src.models.session_data import SessionData
 
 class SessionHandler:
@@ -15,13 +16,17 @@ class SessionHandler:
 
         # create a new instance of session
         self.__sessions[id] = SessionData()
+
+        import src.globals as globals
+        globals.APP_DATA.save_app_data()
+
         return str(id)
 
 
     def get_sessions(self):
         return self.__sessions
 
-    def get_session_data(self, session_id: str):
+    def get_session_data(self, session_id: str) -> Optional[SessionData]:
         return self.__sessions.get(session_id)
 
     def get_count(self):

@@ -14,13 +14,13 @@ def create_session():
 
         session_id = session_handler.create_new()
 
-        globals.APP_DATA.save_app_data()
-
         return jsonify({
             "status": 200,
             "session_id": session_id
         })
     except Exception as e:
+        print(traceback.format_exc())
+        print(e)
         return jsonify({
             "status": 500,
             "status_msg": str(e)
@@ -96,5 +96,6 @@ def get_recommendations():
         return jsonify({"status": 200, "recommendations": rec})
 
     except Exception as e:
+        print("trace:", traceback.format_exc())
         print("error:", e)
         return jsonify({"status": 500, "status_msg": str(e)})
