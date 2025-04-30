@@ -29,12 +29,18 @@ def create_session():
 @APP_SERVER.route("/external/like", methods=['post'])
 def like_content():
     try: 
+        import src.globals as globals
+
         formData = request.form
-        print(formData)
         session_id = formData["session_id"]
         content_id = formData["content_id"]
 
-        # TODO: perform action ...
+        session_handler = globals.APP_DATA.get_session_handler()
+        session_data = session_handler.get_session_data(session_id)
+        if not session_data:
+            raise Exception(f"No session exists for: {session_id}")
+
+        session_data.add_like(content_id)
 
         return jsonify({ "status": 200 })
     except Exception as e:
@@ -48,7 +54,12 @@ def dislike_content():
         session_id = formData["session_id"]
         content_id = formData["content_id"]
 
-        # TODO: perform action ...
+        session_handler = globals.APP_DATA.get_session_handler()
+        session_data = session_handler.get_session_data(session_id)
+        if not session_data:
+            raise Exception(f"No session exists for: {session_id}")
+
+        session_data.dislike_content(content_id)
 
         return jsonify({ "status": 200 })
     except Exception as e:
