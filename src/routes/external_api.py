@@ -91,7 +91,9 @@ def get_recommendations():
         if not recommender:
             raise Exception(f"No recommender created for the '{session_model_str}' model")
 
-        rec = recommender.recommend(session_id, 5)
+        batch_size = app_data.batch_size
+
+        rec = recommender.recommend(session_id, batch_size)
 
         return jsonify({"status": 200, "recommendations": rec})
 
