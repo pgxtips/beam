@@ -26,6 +26,29 @@ def create_session():
             "status_msg": str(e)
         })
 
+@APP_SERVER.route("/external/get_tags", methods=['get'])
+def get_tag():
+    try:
+        import src.globals as globals
+        data_source = globals.APP_DATA.data_source
+        assert data_source
+
+        tags = data_source.get_tags()
+
+        return jsonify({
+            "status": 200,
+            "tags": tags
+        })
+
+    except Exception as e:
+        print(traceback.format_exc())
+        print(e)
+        return jsonify({
+            "status": 500,
+            "status_msg": str(e)
+        })
+
+
 @APP_SERVER.route("/external/like", methods=['post'])
 def like_content():
     try: 

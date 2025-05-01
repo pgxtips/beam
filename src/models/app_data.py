@@ -27,6 +27,7 @@ class AppData:
         self.system_status = "Inoperative"
         self.logger = Logger()
         self.default_model = "logistic"
+        # ACE ?? 
         self.batch_size = 5
         self.auto_training = True
         self.ui_theme = "light"
