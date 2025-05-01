@@ -27,13 +27,42 @@ def create_session():
         })
 
 @APP_SERVER.route("/external/get_tags", methods=['get'])
-def get_tag():
+def get_tags():
     try:
         import src.globals as globals
         data_source = globals.APP_DATA.data_source
         assert data_source
 
         tags = data_source.get_tags()
+
+        return jsonify({
+            "status": 200,
+            "tags": tags
+        })
+
+    except Exception as e:
+        print(traceback.format_exc())
+        print(e)
+        return jsonify({
+            "status": 500,
+            "status_msg": str(e)
+        })
+
+@APP_SERVER.route("/external/post/preferences", methods=['post'])
+def post_pref():
+    try:
+        import src.globals as globals
+
+        formData = request.form
+        print(formData)
+
+        session_id = formData["session_id"]
+        tags = formData["tags"].split(",")
+
+        session_handler = globals.APP_DATA.get_session_handler()
+        assert session_handler
+
+        session_handler.set_preferences(session_id, tags)
 
         return jsonify({
             "status": 200,
