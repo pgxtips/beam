@@ -20,6 +20,10 @@ def sessions():
 def monitor():
     return render_template("monitor.html")
 
+@APP_SERVER.route("/dashboard/metrics", methods=['get'])
+def metrics():
+    return render_template("metrics.html")
+
 @APP_SERVER.route("/dashboard/logs", methods=['get'])
 def logs():
     return render_template("logs.html")

@@ -1,5 +1,7 @@
 from datetime import datetime 
 
+from src.models.metrics import Metrics
+
 class SessionData:
     def __init__(self):
         from src.globals import APP_DATA 
@@ -16,6 +18,7 @@ class SessionData:
         self.__last_train: datetime = datetime.now()
         self.__last_seen: datetime = datetime.now()
         self.__created: datetime = datetime.now()
+        self.__metrics: Metrics = Metrics()
 
     def add_history(self, cid: str):
         self.__history.add(cid)
