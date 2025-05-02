@@ -1,4 +1,3 @@
-import src.globals as globals
 from src.models import session_handler
 
 from .abc_recommender import Recommender
@@ -25,6 +24,7 @@ class LogisticRecommender(Recommender):
         self.id_to_index = {cid: i for i, cid in enumerate(content_ids)}
 
     def train(self, session_id):
+        import src.globals as globals
 
         assert globals.APP_DATA
         SESSION_HANDLER = globals.APP_DATA.get_session_handler()
@@ -56,6 +56,8 @@ class LogisticRecommender(Recommender):
             SESSION_HANDLER.process_dislikes(session_id)
 
     def recommend(self, session_id, k=10):
+        import src.globals as globals
+
         self.__sync_session_model(session_id)
 
         assert globals.APP_DATA
@@ -92,6 +94,8 @@ class LogisticRecommender(Recommender):
 
     def __create_classifier(self, session_id):
 
+        import src.globals as globals
+
         assert globals.APP_DATA
         SESSION_HANDLER = globals.APP_DATA.get_session_handler()
 
@@ -114,6 +118,7 @@ class LogisticRecommender(Recommender):
         clf.partial_fit(np.zeros((1, self.content_matrix.shape[1])), [0], classes=[0, 1])
 
     def __sync_session_model(self, session_id: str):
+        import src.globals as globals
 
         assert globals.APP_DATA
         SESSION_HANDLER = globals.APP_DATA.get_session_handler()

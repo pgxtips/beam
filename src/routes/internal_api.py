@@ -155,6 +155,17 @@ def get_settings_data():
     except Exception as e:
         return jsonify( { "status": 500, "status_msg": str(e) })
 
+@APP_SERVER.route("/internal/get/deletepkl", methods=['get'])
+def get_delete_pkl():
+    try:
+        import os
+        path="persistent/app_data.pkl"
+        if os.path.exists(path):
+            os.remove(path)
+
+        return jsonify( { "status": 200, } )
+    except Exception as e:
+        return jsonify( { "status": 500, "status_msg": str(e) })
 
 
 # --------------------------

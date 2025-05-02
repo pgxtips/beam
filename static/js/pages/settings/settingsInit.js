@@ -14,5 +14,13 @@ $(document).ready(async function(){
         await settingsPoster(event)
     })
 
+    $("#submitButton").click(async function(event){
+        await settingsPoster(event)
+    })
+
+    $("#deletePKL").click(async function(event){
+        await get_controller("/internal/get/deletepkl", cbDeletePKL, {}, true)
+    })
+
     await settingsRedeemer()
 })

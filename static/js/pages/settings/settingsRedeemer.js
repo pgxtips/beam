@@ -23,3 +23,7 @@ function cbSettingsPoster(data){
     $("#saveButtons").hide()
 }
 
+function cbDeletePKL(props, data){
+    console.log(data)
+}
+

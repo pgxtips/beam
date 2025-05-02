@@ -33,21 +33,24 @@ class AppData:
         self.ui_theme = "light"
 
     def load_app_data(self, path="persistent/app_data.pkl"):
-        import os
-        if os.path.exists(path):
-            with open(path, "rb") as f:
-                loaded_data = pickle.load(f)
-                self.__session_handler = loaded_data.__session_handler
-                self.data_source = loaded_data.data_source
-                self.temp_data_source = loaded_data.temp_data_source
-                self.__models = loaded_data.__models
-                self.rec_requests = loaded_data.rec_requests
-                self.system_status = loaded_data.system_status
-                self.logger = loaded_data.logger
-                self.default_model = loaded_data.default_model
-                self.batch_size = loaded_data.batch_size
-                self.auto_training = loaded_data.auto_training
-                self.ui_theme = loaded_data.ui_theme
+        try:
+            import os
+            if os.path.exists(path):
+                with open(path, "rb") as f:
+                    loaded_data = pickle.load(f)
+                    self.__session_handler = loaded_data.__session_handler
+                    self.data_source = loaded_data.data_source
+                    self.temp_data_source = loaded_data.temp_data_source
+                    self.__models = loaded_data.__models
+                    self.rec_requests = loaded_data.rec_requests
+                    self.system_status = loaded_data.system_status
+                    self.logger = loaded_data.logger
+                    self.default_model = loaded_data.default_model
+                    self.batch_size = loaded_data.batch_size
+                    self.auto_training = loaded_data.auto_training
+                    self.ui_theme = loaded_data.ui_theme
+        except Exception as e:
+            print("error: Failed to load from pickle")
 
     def save_app_data(self, path="persistent/app_data.pkl"):
         import os
