@@ -1,4 +1,9 @@
-<h1><img src="static/img/logo.png" alt="Beam Architecture" width="60px" height="60px">Beam</h1>
+<h1 style="text-align: center; line-height: 1;">
+  <img src="static/img/logo.png" width="32" height="33" style="vertical-align: middle;">
+  <span style="vertical-align: middle;">Beam</span>
+</h1>
+
+
 
 **beam** is a modular, plug-and-play recommendation engine built for small 
 businesses and app developers. 
