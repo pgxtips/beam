@@ -1,4 +1,4 @@
-# ![Beam Architecture](static/img/logo.png) beam 
+<h1><img src="static/img/logo.png" alt="Beam Architecture" width="60px" height="60px">Beam</h1>
 
 **beam** is a modular, plug-and-play recommendation engine built for small 
 businesses and app developers. 
