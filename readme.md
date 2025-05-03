@@ -170,6 +170,16 @@ docker run -p 3000:80 beam
 A demonstration of a Beam implementation can be found [here](https://github.com/pgxtips/beam-demo).
 
 
+## Not Yet Implemented
+
+The following features are planned but not currently available:
+
+- Selecting a database as a data source (currently only JSON file supported via dashboard)
+- User authentication and session persistence beyond runtime
+- Automatic model tuning or performance analytics
+- Real-time collaborative filtering
+
+
 ## Tech Stack
 
 * Python 3.13+
