@@ -1,5 +1,3 @@
----
-
 # beam
 
 **beam** is a modular, plug-and-play recommendation engine built for small 
