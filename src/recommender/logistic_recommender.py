@@ -22,6 +22,9 @@ class LogisticRecommender(Recommender):
         self.session_preferences = {}  # session_id -> session preferences 
 
         self.id_to_index = {cid: i for i, cid in enumerate(content_ids)}
+        
+        # session_id -> str[]
+        self.rec_history = {}
 
     def train(self, session_id):
         import src.globals as globals
@@ -87,6 +90,13 @@ class LogisticRecommender(Recommender):
 
         for cid in rec_ids:
             session_data.add_history(cid)
+             
+
+        if (self.rec_history.get(session_id)):
+            self.rec_history[session_id].append(rec_ids)
+        else:
+            self.rec_history[session_id] = rec_ids
+
 
         globals.APP_DATA.save_app_data()
 

@@ -7,6 +7,8 @@ class NoneRecommender(Recommender):
         content_ids: list of content item ids, aligned with rows in content_matrix
         """
         self.content_ids = content_ids
+        # session_id -> str[]
+        self.rec_history = {} 
 
     def train(self, session_id):
         pass
@@ -30,6 +32,11 @@ class NoneRecommender(Recommender):
         # update session history
         for cid in recommended:
             session_data.add_history(cid)
+            
+        if (self.rec_history.get(session_id)):
+            self.rec_history[session_id].append(recommended)
+        else:
+            self.rec_history[session_id] = recommended
 
         globals.APP_DATA.save_app_data()
 
