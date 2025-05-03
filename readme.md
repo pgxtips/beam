@@ -1,4 +1,4 @@
-# beam
+# ![Beam Architecture](static/img/logo.png) beam 
 
 **beam** is a modular, plug-and-play recommendation engine built for small 
 businesses and app developers. 
@@ -15,7 +15,6 @@ Beam helps applications deliver recommendations through:
 * Session-aware preference tracking
 * Multiple, swappable recommendation algorithms
 * Configuration through a web dashboard
-* Lightweight, embeddable backend
 
 ---
 
