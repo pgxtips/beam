@@ -18,7 +18,7 @@ function loadRowData(event){
     $("#info-pref").text(data.preferences.join(", "))
     $("#info-likes").text(data.likes.join(", "))
     $("#info-dislikes").text(data.dislikes.join(", "))
-    $("#info-activeModel").text()
+    $("#info-activeModel").text(data.active_model)
     $("#info-lastTrain").text(data.last_trained)
     $("#info-modelSamples").text(data.model_samples)
     $("#info-history").text(data.history.join(", "))

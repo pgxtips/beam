@@ -27,9 +27,12 @@ function cbSessions(props, data){
         let model_samples = dp.model_samples ?? "N/A"
         let last_trained = dp.last_trained ?? "N/A"
         let history = dp.history ?? "N/A"
+        let active_model= dp.active_model ?? "N/A"
+
+        console.log(active_model)
 
         let DATA_ENTRY = {
-            session_id, created, last_seen, preferences, likes, dislikes, last_recs, model_samples, last_trained, history
+            session_id, created, last_seen, preferences, likes, dislikes, last_recs, model_samples, last_trained, history, active_model
         }
 
         SESSION_DATA[session_id] = DATA_ENTRY

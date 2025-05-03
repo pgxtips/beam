@@ -153,3 +153,35 @@ def get_recommendations():
         print("trace:", traceback.format_exc())
         print("error:", e)
         return jsonify({"status": 500, "status_msg": str(e)})
+
+@APP_SERVER.route("/external/changeModel", methods=['post'])
+def change_model():
+    try:
+        import src.globals as globals
+
+        formData = request.form
+        session_id = formData["session_id"]
+        model = formData["model"]
+
+        assert model
+
+        app_data = globals.APP_DATA
+        if not app_data:
+            raise Exception("App data is not initialized.")
+
+        session_handler = app_data.get_session_handler()
+        session_data = session_handler.get_session_data(session_id)
+        if not session_data:
+            raise Exception(f"No session exists for: {session_id}")
+
+        valid_models = ['logistic', 'none']
+        assert model in valid_models
+
+        session_data.change_model(model)
+
+        return jsonify({"status": 200 })
+
+    except Exception as e:
+        print("trace:", traceback.format_exc())
+        print("error:", e)
+        return jsonify({"status": 500, "status_msg": str(e)})

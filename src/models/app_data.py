@@ -5,10 +5,11 @@ from typing import Optional
 from src.recommender.abc_recommender import Recommender
 from src.recommender.data_processing import prepare_data
 from src.recommender.logistic_recommender import LogisticRecommender
+from src.recommender.none_recommender import NoneRecommender 
 
 from src.models.session_data import SessionData
 from src.models.session_handler import SessionHandler
-from src.models.logger import Logger 
+from src.models.logger import Logger
 
 class AppData:
     def __init__(self):
@@ -19,7 +20,7 @@ class AppData:
 
         self.__models: dict[str, Optional[Recommender]] = {
             "logistic": None,
-            "similarity": None
+            "none": None
         }
 
         self.rec_requests = 0
@@ -91,8 +92,9 @@ class AppData:
         logistic_recommender = LogisticRecommender(X, ids, vectoriser) 
         self.__models["logistic"] = logistic_recommender
 
-        # build similarity recommender
-        # ...
+        # build none recommender
+        logistic_recommender = NoneRecommender(ids) 
+        self.__models["none"] = logistic_recommender
 
     def set_session_handler(self, session_handler):
         self.session_handler = session_handler

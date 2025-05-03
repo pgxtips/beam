@@ -75,3 +75,6 @@ class SessionData:
             self.__preprocessed_dislikes.remove(cid)
         else:
             self.__preprocessed_dislikes.add(cid)
+
+    def change_model(self, model):
+        self.__model = model
