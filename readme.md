@@ -166,6 +166,10 @@ docker run -p 3000:80 beam
 
 ---
 
+## Examples
+A demonstration of a Beam implementation can be found [here](https://github.com/pgxtips/beam-demo).
+
+
 ## Tech Stack
 
 * Python 3.13+
