@@ -93,8 +93,8 @@ class AppData:
         self.__models["logistic"] = logistic_recommender
 
         # build none recommender
-        logistic_recommender = NoneRecommender(ids) 
-        self.__models["none"] = logistic_recommender
+        none_recommender = NoneRecommender(ids) 
+        self.__models["none"] = none_recommender
 
     def set_session_handler(self, session_handler):
         self.session_handler = session_handler
